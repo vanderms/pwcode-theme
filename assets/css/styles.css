@@ -71,9 +71,30 @@ body {
 .pwcode-navbar .menu:last-child {
   margin-left: 50px;
 }
-.pwcode-navbar .menu li {
+.pwcode-navbar .menu > li {
+  position: relative;
   margin-left: 50px;
 }
-.pwcode-navbar .menu li:first-child {
+.pwcode-navbar .menu > li:first-child {
   margin-left: 0px;
+}
+.pwcode-navbar .menu > li:hover .sub-menu {
+  max-height: 1000px;
+}
+.pwcode-navbar .menu > li .sub-menu {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  transition: max-height 0.25s;
+  width: 140px;
+  max-height: 0px;
+  left: -20px;
+  overflow: hidden;
+  top: calc((80px / 2) + 10px);
+  z-index: -1;
+}
+.pwcode-navbar .menu > li .sub-menu li {
+  line-height: 40px;
+  margin-left: 20px;
+  font-size: 0.9em;
 }

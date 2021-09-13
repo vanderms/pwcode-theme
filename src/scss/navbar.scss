@@ -24,18 +24,49 @@ $sidebar-height: 56px;
   }
 
   .menu {
+    
     @include flexbox(start);
     &:last-child{
       margin-left: 50px;
     }
 
-    li{
+    &>li{
+      position: relative;
       margin-left: 50px;
       &:first-child{
         margin-left: 0px;
+      }
+      
+      &:hover{
+        .sub-menu{
+          max-height: 1000px;
+        }
+      }
+      .sub-menu {    
+        position: absolute;
+        display: flex;
+        flex-direction: column;      
+        transition: max-height 0.25s;
+        width: 140px;
+        max-height: 0px;             
+        left: -20px;
+        overflow: hidden;
+        top: calc((#{$navbar-height} / 2) + 10px);
+        z-index: -1;
+        li{
+          line-height: 40px;
+          margin-left: 20px;
+          font-size: 0.9em;
+        }
       }      
-    }    
+    }
+    
+    
   }
+
+
+
+ 
 
   
 
