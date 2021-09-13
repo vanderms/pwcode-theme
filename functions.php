@@ -7,6 +7,14 @@ add_action('after_setup_theme', function(){
 	add_theme_support('title-tag');
   add_theme_support('post-thumbnails');
   register_nav_menus([ 'primary' => 'Barra de Navegação']);
+ 
+  add_theme_support( 'custom-logo', [
+    'height'               => 60,
+    'width'                => 60,
+    'flex-height'          => true,
+    'flex-width'           => true,
+    'header-text'          => ['pwcode-logo'],
+  ]);
 });
 
 

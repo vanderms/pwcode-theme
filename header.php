@@ -11,11 +11,14 @@
   
 <!-- navbar -->
   <nav class="pwcode-navbar">
+    <?php the_custom_logo(); ?>
+
     <?php if (has_nav_menu( 'primary')) : ?>
       <?php wp_nav_menu([
         'theme_location' => 'primary',
         'container' => '',        
     ]); ?>
+    
     <?php endif; ?>
   </nav>
  
