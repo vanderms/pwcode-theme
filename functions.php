@@ -6,7 +6,11 @@ add_action('after_setup_theme', function(){
   add_theme_support( 'automatic-feed-links' );
 	add_theme_support('title-tag');
   add_theme_support('post-thumbnails');
-  register_nav_menus([ 'primary' => 'Barra de Navegação']);
+  register_nav_menus(
+    [ 'navbar-center' => 'Barra de Navegação - Centro',
+      'navbar-right' => 'Barra de Navegação - Direita'
+    ]    
+  );
  
   add_theme_support( 'custom-logo', [
     'height'               => 60,

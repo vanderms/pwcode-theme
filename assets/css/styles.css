@@ -68,3 +68,12 @@ body {
   align-items: center;
   justify-content: start;
 }
+.pwcode-navbar .menu:last-child {
+  margin-left: 50px;
+}
+.pwcode-navbar .menu li {
+  margin-left: 50px;
+}
+.pwcode-navbar .menu li:first-child {
+  margin-left: 0px;
+}

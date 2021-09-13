@@ -10,17 +10,7 @@
   <?php wp_body_open(); ?>
   
 <!-- navbar -->
-  <nav class="pwcode-navbar">
-    <?php the_custom_logo(); ?>
-
-    <?php if (has_nav_menu( 'primary')) : ?>
-      <?php wp_nav_menu([
-        'theme_location' => 'primary',
-        'container' => '',        
-    ]); ?>
-    
-    <?php endif; ?>
-  </nav>
+  <?php get_template_part('template-parts/component', 'navbar'); ?>
  
 <!-- navbar end -->
 

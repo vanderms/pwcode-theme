@@ -14,7 +14,6 @@ $sidebar-height: 56px;
   @include container;
   border: 1px solid black;
 
-
   .custom-logo-link{    
     max-height: 60px;
     width: auto;
@@ -24,9 +23,21 @@ $sidebar-height: 56px;
     }
   }
 
-  .menu{
+  .menu {
     @include flexbox(start);
+    &:last-child{
+      margin-left: 50px;
+    }
+
+    li{
+      margin-left: 50px;
+      &:first-child{
+        margin-left: 0px;
+      }      
+    }    
   }
+
+  
 
 
 }
