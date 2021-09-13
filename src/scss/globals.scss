@@ -1,0 +1,77 @@
+
+//breakpoints
+$laptop: 1499px;
+$tablet: 1079px;
+$mobile: 679px;
+$small-mobile: 359px;
+
+//rounded borders
+$rounded: 5px;
+
+//media-query
+@mixin media-query($breakpoint){
+  @media screen and (max-width: $breakpoint){
+    @content;
+  }
+}
+
+//container
+@mixin container(){
+  padding-right: calc(50% - 650px);
+  padding-left: calc(50% - 650px);
+
+  @include media-query($laptop){
+    padding-right: 8%;
+    padding-left: 8%;
+  }  
+  @include media-query($tablet){
+    padding-right: 6%;
+    padding-left: 6%;
+  }
+  @include media-query($mobile){
+    padding-right: 3%;
+    padding-left: 3%;
+  }
+  @include media-query($small-mobile){
+    padding-right: 2px;
+    padding-left: 2px;
+  }
+}
+
+@mixin color($background-color, $text-color){
+  background-color: $background-color;
+  color: $text-color;
+}
+
+
+@mixin size($width, $height){
+  width: $width;
+  height: $height;
+}
+
+
+@mixin flexbox($justify, $direction : row){
+  display: flex; 
+  flex-direction: $direction;
+  align-items: center;
+  justify-content: $justify;
+}
+
+
+@mixin cta-primary{  
+  cursor: pointer;
+  padding: 8px 16px;
+  font-weight: 500;
+  border: none;
+  border-radius: $rounded;
+}
+
+
+@mixin cta-secondary{  
+  cursor: pointer;
+  border: 1px solid $primary;
+  padding: 7px 15px;
+  font-weight: 500; 
+  border-radius: $rounded;
+}
+
