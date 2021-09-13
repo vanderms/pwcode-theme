@@ -8,8 +8,8 @@ $small-mobile: 359px;
 //rounded borders
 $rounded: 5px;
 
-//media-query
-@mixin media-query($breakpoint){
+//media
+@mixin media($breakpoint){
   @media screen and (max-width: $breakpoint){
     @content;
   }
@@ -20,19 +20,19 @@ $rounded: 5px;
   padding-right: calc(50% - 650px);
   padding-left: calc(50% - 650px);
 
-  @include media-query($laptop){
+  @include media($laptop){
     padding-right: 8%;
     padding-left: 8%;
   }  
-  @include media-query($tablet){
+  @include media($tablet){
     padding-right: 6%;
     padding-left: 6%;
   }
-  @include media-query($mobile){
+  @include media($mobile){
     padding-right: 3%;
     padding-left: 3%;
   }
-  @include media-query($small-mobile){
+  @include media($small-mobile){
     padding-right: 2px;
     padding-left: 2px;
   }

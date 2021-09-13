@@ -3,6 +3,17 @@
 body {
   margin: 0px;
   font-family: "Nunito Sans", sans-serif;
+  background-color: black;
+  color: white;
+}
+
+.pwcode-navbar {
+  background-color: white;
+  color: black;
+}
+.pwcode-navbar .sub-menu {
+  background-color: white;
+  color: black;
 }
 .pwcode-navbar {
   box-sizing: border-box;
@@ -14,7 +25,6 @@ body {
   justify-content: space-between;
   padding-right: calc(50% - 650px);
   padding-left: calc(50% - 650px);
-  border: 1px solid black;
 }
 .pwcode-navbar *, .pwcode-navbar *:after, .pwcode-navbar *:before {
   box-sizing: border-box;
@@ -62,26 +72,32 @@ body {
   max-height: 60px;
   width: auto;
 }
-.pwcode-navbar .menu {
+.pwcode-navbar .pwcode-links {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: start;
 }
-.pwcode-navbar .menu:last-child {
-  margin-left: 50px;
+.pwcode-navbar .pwcode-links .menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
 }
-.pwcode-navbar .menu > li {
+.pwcode-navbar .pwcode-links .menu:not(:first-of-type) {
+  margin-left: 100px;
+}
+.pwcode-navbar .pwcode-links .menu > li {
   position: relative;
   margin-left: 50px;
 }
-.pwcode-navbar .menu > li:first-child {
+.pwcode-navbar .pwcode-links .menu > li:first-child {
   margin-left: 0px;
 }
-.pwcode-navbar .menu > li:hover .sub-menu {
+.pwcode-navbar .pwcode-links .menu > li:hover .sub-menu {
   max-height: 1000px;
 }
-.pwcode-navbar .menu > li .sub-menu {
+.pwcode-navbar .pwcode-links .menu > li .sub-menu {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -93,8 +109,35 @@ body {
   top: calc((80px / 2) + 10px);
   z-index: -1;
 }
-.pwcode-navbar .menu > li .sub-menu li {
-  line-height: 40px;
+.pwcode-navbar .pwcode-links .menu > li .sub-menu li {
+  line-height: 48px;
   margin-left: 20px;
   font-size: 0.9em;
+  font-style: italic;
+}
+@media screen and (max-width: 1079px) {
+  .pwcode-navbar {
+    width: 80%;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: start;
+  }
+  .pwcode-navbar .custom-logo-link {
+    margin: 60px 0px;
+  }
+  .pwcode-navbar .pwcode-links {
+    flex-direction: column;
+  }
+  .pwcode-navbar .pwcode-links .menu {
+    flex-direction: column;
+  }
+  .pwcode-navbar .pwcode-links .menu:not(:first-of-type) {
+    margin-left: 0px;
+    margin-top: 32px;
+  }
+  .pwcode-navbar .pwcode-links .menu > li {
+    position: relative;
+    margin-left: 0px;
+    margin-top: 12px;
+  }
 }
