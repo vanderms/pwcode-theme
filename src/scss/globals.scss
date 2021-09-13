@@ -75,3 +75,30 @@ $rounded: 5px;
   border-radius: $rounded;
 }
 
+@mixin anchor-child{
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+@mixin li-child{
+  li {
+    list-style-type: none;
+  }  
+}
+
+@mixin ul-child{
+  ul{
+    margin: 0px;
+    padding: 0px;
+  }
+}
+
+@mixin border-box{
+  box-sizing: border-box;
+  *, *:after, *:before{
+    box-sizing: border-box;
+  }
+}
+

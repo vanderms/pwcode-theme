@@ -1,0 +1,21 @@
+@import "globals.scss";
+
+
+$navbar-height: 80px;
+$sidebar-height: 56px;
+
+.pwcode-navbar {
+  @include border-box;
+  @include anchor-child;
+  @include li-child;
+  @include ul-child;
+  @include size(100%, $navbar-height);
+  @include flexbox(space-between);
+  @include container;
+  border: 1px solid black;
+
+  .menu{
+    @include flexbox(start);
+  }
+
+}
