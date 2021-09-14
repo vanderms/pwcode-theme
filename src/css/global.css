@@ -1,0 +1,15 @@
+body {
+  margin: 0px;
+  font-family: "Nunito Sans", sans-serif;
+  background-color: black;
+  color: white;
+}
+
+.pwcode-navbar {
+  background-color: white;
+  color: black;
+}
+.pwcode-navbar .sub-menu {
+  background-color: white;
+  color: black;
+}

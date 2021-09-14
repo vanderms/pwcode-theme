@@ -1,42 +1,73 @@
-// Initialize modules
 const { src, dest, watch, series, parallel } = require('gulp');
 const concat = require('gulp-concat');
 const sass = require('gulp-sass')(require('sass'));
+const extract = require('./extract');
 
 
-//file path variables
 const PATH = {
-  scss: 'src/scss/**/*.scss',
-  js: 'src/js/**/*.js'
+  components : 'src/**/*.php',
+  scss : 'src/**/*.scss',
+  css: ['src/css/font.css', 'src/css/components.css', 'src/css/global.css']
 };
 
-//Sass task
+
+function scssComponentTask(){
+  return (
+    src(PATH.components)
+      .pipe(extract('style'))
+      .pipe(sass())
+      .pipe(concat('components.css'))
+      .pipe(dest('src/css'))
+  );
+}
+
 function scssTask(){
-  return (src(PATH.scss)
+  return (
+    src(PATH.scss)
     .pipe(sass())
+    .pipe(concat('global.css'))
+    .pipe(dest('src/css'))
+  );
+}
+
+function mergeCssTask(){
+  return(
+    src(PATH.css)
     .pipe(concat('styles.css'))
     .pipe(dest('assets/css'))
   );
 }
 
-//Js task
-function jsTask(){
+
+function jsComponentTask(){
   return (
-    src(PATH.js)
+    src(PATH.components)
+      .pipe(extract('script'))
       .pipe(concat('main.js'))
       .pipe(dest('assets/js'))
   );
 }
 
 
-//watch task
-function watchTask(){
-  watch([PATH.scss, PATH.js], parallel(scssTask, jsTask));
+function phpComponentTask(){
+  return(
+    src(PATH.components)
+      .pipe(extract('template'))
+      .pipe(dest('template-parts'))
+  );
 }
 
 
-//default task
+function watchTask(){
+  watch([PATH.components], series(
+    parallel(scssComponentTask, jsComponentTask, phpComponentTask, scssTask)),    
+    mergeCssTask
+  );
+}
+
+
 exports.default = series(
-  parallel(scssTask, jsTask),
+  parallel(scssComponentTask, jsComponentTask, phpComponentTask, scssTask), 
+  mergeCssTask,
   watchTask
 );
