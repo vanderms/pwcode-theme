@@ -136,22 +136,41 @@ body {
 }
 @media screen and (max-width: 1079px) {
   .pwcode-navbar {
-    width: 80%;
+    width: 280px;
     height: 100vh;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
     position: fixed;
     left: 0px;
     flex-direction: column;
     justify-content: start;
+    align-items: start;
   }
   .pwcode-navbar .custom-logo-link {
-    margin: 60px 0px;
+    position: relative;
+    max-height: 30px;
+    margin: calc((56px - 30px) / 2) 25px;
+  }
+  .pwcode-navbar .custom-logo-link .custom-logo {
+    max-height: 30px;
   }
   .pwcode-navbar .pwcode-links {
+    display: flex;
     flex-direction: column;
+    align-items: start;
+    justify-content: start;
     width: 100%;
+    padding: 60px 25px 0px 25px;
+    border-top: 1px solid gainsboro;
   }
   .pwcode-navbar .pwcode-links .menu {
+    display: flex;
     flex-direction: column;
+    align-items: start;
+    justify-content: start;
     width: 100%;
   }
   .pwcode-navbar .pwcode-links .menu:not(:first-of-type) {
@@ -161,7 +180,18 @@ body {
   .pwcode-navbar .pwcode-links .menu > li {
     margin-left: 0px;
     line-height: 40px;
+  }
+  .pwcode-navbar .pwcode-links .menu > li.menu-item-has-children {
     width: 100%;
+    margin-right: unset;
+  }
+  .pwcode-navbar .pwcode-links .menu > li.menu-item-has-children .pwcode-arrow {
+    line-height: unset;
+    right: -20px;
+    cursor: pointer;
+    width: 40px;
+    margin-left: unset;
     text-align: center;
+    font-size: 18px;
   }
 }

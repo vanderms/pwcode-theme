@@ -1,6 +1,6 @@
 
    
-  (function createSubmenuArrow(){    
+  function SubmenuArrow(){    
    
     const parents = document.querySelectorAll('.menu-item-has-children');
     const arrows = [];
@@ -23,7 +23,9 @@
     watch(media);
     media.addListener(watch);    
     
-  })();
+  }
+
+  SubmenuArrow();
 
 
 

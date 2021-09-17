@@ -50,10 +50,10 @@ $rounded: 5px;
 }
 
 
-@mixin flexbox($justify, $direction : row){
+@mixin flexbox($direction : row, $justify: center, $align-items: center){
   display: flex; 
   flex-direction: $direction;
-  align-items: center;
+  align-items: $align-items;
   justify-content: $justify;
 }
 

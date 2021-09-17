@@ -15,6 +15,8 @@
 <nav class="pwcode-navbar">  
   <?php the_custom_logo(); ?>
 
+  
+
   <div class="pwcode-links">
     <?php if (has_nav_menu( 'navbar-center')) : ?>
       <?php wp_nav_menu($nav_center_args); ?>
@@ -31,7 +33,7 @@
 <!--------------------------------- JAVASCRIPT ---------------------------------->
 <script>   
    
-  (function createSubmenuArrow(){    
+  function SubmenuArrow(){    
    
     const parents = document.querySelectorAll('.menu-item-has-children');
     const arrows = [];
@@ -54,7 +56,9 @@
     watch(media);
     media.addListener(watch);    
     
-  })();
+  }
+
+  SubmenuArrow();
 
 
 
@@ -74,7 +78,7 @@ $sidebar-height: 56px;
   @include li-child;
   @include ul-child;
   @include size(100%, $navbar-height);
-  @include flexbox(space-between);
+  @include flexbox(row, space-between);
   @include container;
   text-transform: uppercase;
   box-shadow: 0px 1px 3px 0px rgba(85,85,85,0.25);
@@ -88,11 +92,11 @@ $sidebar-height: 56px;
     }
   }  
   .pwcode-links{
-    @include flexbox(start);     
+    @include flexbox(row, start);     
 
     .menu {
     
-      @include flexbox(start);
+      @include flexbox(row, start);
       &:not(:first-of-type){
         margin-left: 80px;
       }
@@ -148,23 +152,39 @@ $sidebar-height: 56px;
   
 
   @include media($tablet){
-    @include size(80%, 100vh);
-    position: fixed;   
+    $sidebar-lateral: 25px;
+
+    @include size(280px, 100vh);
+    padding: 0px;
+    @include flexbox(column, start, start);
+    position: fixed;
     
     left: 0px;
     flex-direction: column;
     justify-content: start;
+    align-items: start;
 
     .custom-logo-link{
-      margin: 60px 0px;
+      $logo-height: 30px;
+      position: relative;
+      max-height: $logo-height;
+      margin: calc((#{$sidebar-height} - #{$logo-height}) / 2) $sidebar-lateral;    
+      .custom-logo {
+        max-height: $logo-height;
+      }
+      
+
     }
 
     .pwcode-links{
-      flex-direction: column;
+      @include flexbox(column, start, start);
       width: 100%;
+      padding: 60px $sidebar-lateral 0px $sidebar-lateral;
+      //margin-top: 40px;
+      border-top: 1px solid gainsboro;
 
       .menu{
-        flex-direction: column;
+        @include flexbox(column, start, start);
         width: 100%;
         &:not(:first-of-type){
           margin-left: 0px;
@@ -173,9 +193,23 @@ $sidebar-height: 56px;
         
         &>li{          
           margin-left: 0px;
-          line-height: 40px;
-          width: 100%;     
-          text-align: center;          
+          line-height: 40px;  
+          
+          
+          &.menu-item-has-children{
+            width: 100%;
+            margin-right: unset;
+            .pwcode-arrow{
+              line-height: unset;
+              right: -20px;
+              cursor: pointer;  
+              width: 40px;
+              margin-left: unset;
+              text-align: center;
+              font-size: 18px;
+
+            }
+          }
         }
       }
     }
