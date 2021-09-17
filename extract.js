@@ -1,8 +1,12 @@
 let through = require('through2');
 
 function getTagContent(tagName, file){ 
-  let str = file.contents.toString();
-
+  
+  if(file.path.length - file.path.indexOf('.php') != 4){
+    return file;
+  }
+  let str = file.contents;
+  
   const startTag = `<${tagName}`;
   const endTag = `</${tagName}>`;
 

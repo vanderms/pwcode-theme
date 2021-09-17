@@ -30,6 +30,18 @@
 
 <!--------------------------------- JAVASCRIPT ---------------------------------->
 <script>
+   
+   
+  function createSubmenuArrow(){
+    const parents = document.querySelectorAll('.menu-item-has-children');
+    parents.forEach(parent => {
+      const arrow = document.createElement('span');
+      
+
+    })
+
+  }
+
 
 
 </script>
@@ -49,7 +61,8 @@ $sidebar-height: 56px;
   @include ul-child;
   @include size(100%, $navbar-height);
   @include flexbox(space-between);
-  @include container;  
+  @include container;
+  text-transform: uppercase;
 
   .custom-logo-link{    
     max-height: 60px;
@@ -66,12 +79,12 @@ $sidebar-height: 56px;
     
       @include flexbox(start);
       &:not(:first-of-type){
-        margin-left: 100px;
+        margin-left: 80px;
       }
   
       &>li{
         position: relative;
-        margin-left: 50px;
+        margin-left: 40px;
         &:first-child{
           margin-left: 0px;
         }
@@ -107,6 +120,9 @@ $sidebar-height: 56px;
 
   @include media($tablet){
     @include size(80%, 100vh);
+    position: fixed;   
+    
+    left: 0px;
     flex-direction: column;
     justify-content: start;
 
@@ -116,19 +132,21 @@ $sidebar-height: 56px;
 
     .pwcode-links{
       flex-direction: column;
+      width: 100%;
 
       .menu{
         flex-direction: column;
+        width: 100%;
         &:not(:first-of-type){
           margin-left: 0px;
           margin-top: 32px;
         }
         
-        &>li{
-          position: relative;
+        &>li{          
           margin-left: 0px;
-          margin-top: 12px;
-          
+          line-height: 40px;
+          width: 100%;     
+          text-align: center;          
         }
       }
     }
