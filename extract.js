@@ -5,24 +5,39 @@ function getTagContent(tagName, file){
   if(file.path.length - file.path.indexOf('.php') != 4){
     return file;
   }
-  let str = file.contents;
   
-  const startTag = `<${tagName}`;
-  const endTag = `</${tagName}>`;
+  let str = file.contents;  
+  let start = 0;  
+  let end = 0;
 
-  let start = str.indexOf(startTag);
-  let end = str.indexOf(endTag);
-  
-  if(start === -1){
-    console.log('not found' + startTag);
+  if(tagName === 'php'){
+    const script = str.indexOf('<script');
+    const style = str.indexOf('<style');
+    if(script > 0 && script < style){
+      end = script;
+    }
+    else if(style > 0 && style < script){
+      end= style;
+    }
+    else {
+      return file;
+    }
+  }
+  else {    
+    const startTag = `<${tagName}`;
+    const endTag = `</${tagName}>`;
+    start = str.indexOf(startTag);   
+    end = str.indexOf(endTag);
+    start = str.indexOf('\n', start + 1) + 1;
+  }
+ 
+  if(start === -1){    
     str = '';      
   }
-  else if (end == -1){
-    console.log('not found' + endTag);
+  else if (end == -1){    
     str = ''; 
   }
   else {
-    start = str.indexOf('\n', start + 1) + 1;
     str = str.slice(start, end);
   }
 

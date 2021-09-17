@@ -35,7 +35,7 @@ function jsTask(){
 function templateTask(){
   return(
     src(path.components)
-      .pipe(extract('template'))
+      .pipe(extract('php'))
       .pipe(dest('template-parts'))
   );
 }
