@@ -2,11 +2,13 @@
 
   $nav_center_args = [
     'theme_location' => 'navbar-center',
-    'container' => '',   
+    'container' => '',  
+    'depth' => 2 
   ];
   $nav_right_args = [
    'theme_location' => 'navbar-right',
-   'container' => '',  
+   'container' => '',
+   'depth' => 1  
   ];
 
 ?>
