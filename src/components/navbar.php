@@ -29,18 +29,32 @@
 </template>
 
 <!--------------------------------- JAVASCRIPT ---------------------------------->
-<script>
+<script>   
    
+  (function createSubmenuArrow(){    
    
-  function createSubmenuArrow(){
     const parents = document.querySelectorAll('.menu-item-has-children');
-    parents.forEach(parent => {
-      const arrow = document.createElement('span');
-      
+    const arrows = [];
+   
+    parents.forEach(parent =>{
+      const arrow = document.createElement('i');      
+      parent.appendChild(arrow);
+      arrows.push(arrow);
+    });
 
-    })
-
-  }
+    function watch(media){
+      if(media.matches){
+        arrows.forEach(arrow => arrow.className = "pwcode-arrow fa fa-angle-right");
+      }
+      else{
+        arrows.forEach(arrow => arrow.className = "pwcode-arrow fa fa-angle-down");
+      }     
+    }
+    const media = window.matchMedia('(max-width: 1079px)');
+    watch(media);
+    media.addListener(watch);    
+    
+  })();
 
 
 
@@ -63,6 +77,7 @@ $sidebar-height: 56px;
   @include flexbox(space-between);
   @include container;
   text-transform: uppercase;
+  box-shadow: 0px 1px 3px 0px rgba(85,85,85,0.25);
 
   .custom-logo-link{    
     max-height: 60px;
@@ -82,40 +97,54 @@ $sidebar-height: 56px;
         margin-left: 80px;
       }
   
-      &>li{
-        position: relative;
-        margin-left: 40px;
+      &>li{        
+        margin-left: 40px;  
+       
+        line-height: $navbar-height;   
+        
         &:first-child{
           margin-left: 0px;
         }
-        
-        &:hover{
-          .sub-menu{
-            max-height: 1000px;
+
+        &.menu-item-has-children{
+          position: relative;
+          margin-right: 18px;
+          
+          &:hover {
+            .sub-menu{
+              max-height: 1000px;
+              box-shadow: 0px 0px 2px 1px rgba(85,85,85,0.25); 
+            }
           }
+
+          .pwcode-arrow{
+            position: absolute;
+            line-height: $navbar-height;
+            margin-left: 10px;
+            cursor: pointer;            
+          }
+
+          .sub-menu {    
+            position: absolute;
+            display: flex;
+            flex-direction: column;      
+            transition: max-height 0.25s;
+            width: 160px;
+            max-height: 0px;             
+            left: -20px;          
+            overflow: hidden;
+            top: $navbar-height;
+            z-index: -1;
+            li {
+              line-height: 48px;
+              margin-left: 20px;
+              font-size: 0.9em;    
+            }
+          }      
         }
-        .sub-menu {    
-          position: absolute;
-          display: flex;         
-          flex-direction: column;      
-          transition: max-height 0.25s;
-          width: 140px;
-          max-height: 0px;             
-          left: -20px;          
-          overflow: hidden;
-          top: calc((#{$navbar-height} / 2) + 10px);
-          z-index: -1;
-          li{
-            line-height: 48px;
-            margin-left: 20px;
-            font-size: 0.9em;
-            font-style: italic;
-          }
-        }      
       }
     }
-
-  }
+  } //behold the pyramid of doom!!!
   
 
   @include media($tablet){

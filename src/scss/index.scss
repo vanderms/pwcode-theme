@@ -1,7 +1,6 @@
 @import 'utilities.scss';
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&display=swap');
 
-
 body{
   margin: 0px;
   font-family: 'Nunito Sans', sans-serif;
@@ -9,6 +8,13 @@ body{
   color: white;
 }
 
+.opacity-hidden {
+  opacity: 0;  
+}
+
+.opacity-transition{
+  transition: opacity 0.5s;
+}
 
 .pwcode-navbar {
   background-color: white;
