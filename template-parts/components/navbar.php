@@ -1,5 +1,5 @@
 <?php
-  namespace pwcode\com\theme;
+  namespace pw\com\theme;
   
   class MenuWalker extends \Walker_Nav_Menu {
     
@@ -7,7 +7,7 @@
       $has_children = false;
       foreach($item->classes as $class_name):
         if ($class_name === 'menu-item-has-children'):
-          $output .= "<i class='pwcode-arrow fa fa-angle-down'></i>";       
+          $output .= "<i class='pw-arrow fa fa-angle-down'></i>";       
         endif;
       endforeach;
       $output .= "</li>\n";
@@ -31,11 +31,11 @@
 
 ?>
 
-<nav class="pwcode-navbar">  
+<nav class="pw-navbar">  
  
   <?php the_custom_logo(); ?>
 
-  <div class="pwcode-links">
+  <div class="pw-links">
     <?php if (has_nav_menu( 'navbar-center')) : ?>
       <?php wp_nav_menu($nav_center_args); ?>
     <?php endif; ?>

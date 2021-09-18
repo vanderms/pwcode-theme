@@ -1,5 +1,5 @@
 <?php
-  namespace pwcode\com\theme;
+  namespace pw\com\theme;
   
   class MenuWalker extends \Walker_Nav_Menu {
     
@@ -7,7 +7,7 @@
       $has_children = false;
       foreach($item->classes as $class_name):
         if ($class_name === 'menu-item-has-children'):
-          $output .= "<i class='pwcode-arrow fa fa-angle-down'></i>";       
+          $output .= "<i class='pw-arrow fa fa-angle-down'></i>";       
         endif;
       endforeach;
       $output .= "</li>\n";
@@ -31,11 +31,11 @@
 
 ?>
 
-<nav class="pwcode-navbar">  
+<nav class="pw-navbar">  
  
   <?php the_custom_logo(); ?>
 
-  <div class="pwcode-links">
+  <div class="pw-links">
     <?php if (has_nav_menu( 'navbar-center')) : ?>
       <?php wp_nav_menu($nav_center_args); ?>
     <?php endif; ?>
@@ -48,14 +48,28 @@
 
 
 <script>
-// ******************************* JAVASCRIPT ************************************
- 
 
+  function SidebarDropdown(){
+
+    const parents = document.querySelectorAll('.menu-item-has-children');
+    
+    parents.forEach(parent =>{
+      const arrow = parent.querySelector('.pw-arrow');
+      const submenu = parent.querySelector('.sub-menu');
+      arrow.addEventListener('click', ()=>{
+        submenu.classList.toggle('pw-open');
+      });
+    })
+
+
+  }
+ 
+  SidebarDropdown();
 
 
 </script>
 
-<!------------------------------------ SCSS ------------------------------------->
+
 <style lang='scss'>
 @import "../scss/utilities.scss";
 
@@ -63,7 +77,7 @@ $navbar-height: 80px;
 $sidebar-height: 56px;
 
 
-.pwcode-navbar {
+.pw-navbar {
   @include border-box;
   @include anchor-child;
   @include li-child;
@@ -82,7 +96,7 @@ $sidebar-height: 56px;
       width: auto;
     }
   }  
-  .pwcode-links{
+  .pw-links{
     @include flexbox(row, start);     
 
     .menu {
@@ -103,37 +117,42 @@ $sidebar-height: 56px;
 
         &.menu-item-has-children{
           position: relative;
-          margin-right: 18px;
+          padding-right: 40px;
+          margin-right: -20px;
           
           &:hover {
-            .sub-menu{
-              max-height: 1000px;
-              box-shadow: 0px 0px 2px 1px rgba(85,85,85,0.25); 
+            .sub-menu{              
+              box-shadow: 0px 0px 2px 1px rgba(85,85,85,0.25);  
+              li{
+                height: 48px;
+              }             
             }
           }
 
-          .pwcode-arrow{
+          .pw-arrow{
             position: absolute;
+            top: 0px;
             line-height: $navbar-height;
-            margin-left: 10px;
+            right: 20px;
             cursor: pointer;            
           }
 
           .sub-menu {    
             position: absolute;
             display: flex;
-            flex-direction: column;      
-            transition: max-height 0.25s;
-            width: 160px;
-            max-height: 0px;             
+            flex-direction: column;            
+            width: 160px;                   
             left: -20px;          
             overflow: hidden;
             top: $navbar-height;
             z-index: -1;
             li {
+              overflow: hidden;
+              height: 0px;
               line-height: 48px;
               margin-left: 20px;
-              font-size: 0.9em;    
+              font-size: 0.9em;  
+              transition: height 0.25s;  
             }
           }      
         }
@@ -143,12 +162,14 @@ $sidebar-height: 56px;
   
 
   @include media($tablet){
-    $sidebar-lateral: 25px;
+    $sidebar-lateral: 25px;     
 
-    @include size(280px, 100vh);
+    @include size(280px, 100%);
     padding: 0px;
     @include flexbox(column, start, start);
     position: fixed;
+    overflow-x: hidden;
+    overflow-y: auto;
     
     left: 0px;
     flex-direction: column;
@@ -167,7 +188,7 @@ $sidebar-height: 56px;
 
     }
 
-    .pwcode-links{
+    .pw-links{
       @include flexbox(column, start, start);
       width: 100%;
       padding: 60px $sidebar-lateral 0px $sidebar-lateral;
@@ -190,15 +211,46 @@ $sidebar-height: 56px;
           &.menu-item-has-children{
             width: 100%;
             margin-right: unset;
-            .pwcode-arrow{
-              line-height: unset;
+
+            &:hover {
+              .sub-menu{                
+                box-shadow: unset; 
+                li {
+                  height: 0px;
+                }
+
+                &.pw-open{
+                  li {
+                    height: 48px;
+                  }              
+                }                
+              }
+            }           
+            
+            .pw-arrow{
+              line-height: 40px;
+              top: 0px;
               right: -20px;
               cursor: pointer;  
               width: 40px;
               margin-left: unset;
               text-align: center;
               font-size: 18px;
+            }
 
+            .sub-menu{
+              position: unset;              
+              width: 100%;                        
+              
+              li{
+                height: 0px;
+              }
+
+              &.pw-open{
+                li {
+                  height: 48px;
+                }              
+              }              
             }
           }
         }
