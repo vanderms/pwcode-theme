@@ -7,7 +7,7 @@
       $has_children = false;
       foreach($item->classes as $class_name):
         if ($class_name === 'menu-item-has-children'):
-          $output .= "<i class='pw-arrow fa fa-angle-down'></i>";       
+          $output .= "<span class='pw-dynamic-arrow'><span></span><span></span></span>";       
         endif;
       endforeach;
       $output .= "</li>\n";
@@ -31,23 +31,49 @@
 
 ?>
 
-<nav class="pw-navbar">  
- 
+
+<div class="pw-navbar-placeholder"></div>
+
+<div class="pw-sidebar-bar">  
+  <button class="pw-hamburger-menu">
+    <span class="pw-top"></span>
+    <span class="pw-middle"></span>
+    <span class="pw-bottom"></span>
+  </button>
+</div>
+
+<nav class="pw-navbar">
+
+
+
+
+<div class="pw-top-sidebar">
+
+  <!-- logo -->
   <?php if(has_custom_logo()): ?>
-  <?php the_custom_logo(); ?>
-  <?php else: ?>
-    <?php require get_template_directory().'/assets/images/logo.svg'; ?>
+      <?php the_custom_logo(); ?>
+    <?php elseif(file_exists(get_template_directory().'/assets/images/logo.svg')): ?>
+      <a href="http://localhost:8080/" class="custom-logo-link">
+        <img
+          src= "<?php echo get_template_directory_uri().'/assets/images/logo.svg';?>"
+          class="custom-logo" 
+          alt="pwcode"/>
+      </a>
+    <?php else: ?>
+      <span class="pw-logo-placeholder"></span>
   <?php endif; ?>
-  <svg xmlns="http://www.w3.org/2000/svg" width="34.286" height="20" viewBox="0 0 34.286 20">
-  <g id="Icon_ionic-ios-menu" data-name="Icon ionic-ios-menu" transform="translate(-4.5 -10.125)">
-    <path id="Path_3" data-name="Path 3" d="M37.357,12.375H5.929A1.308,1.308,0,0,1,4.5,11.25h0a1.308,1.308,0,0,1,1.429-1.125H37.357a1.308,1.308,0,0,1,1.429,1.125h0A1.308,1.308,0,0,1,37.357,12.375Z" transform="translate(0)"/>
-    <path id="Path_4" data-name="Path 4" d="M37.357,19.125H5.929A1.308,1.308,0,0,1,4.5,18h0a1.308,1.308,0,0,1,1.429-1.125H37.357A1.308,1.308,0,0,1,38.786,18h0A1.308,1.308,0,0,1,37.357,19.125Z" transform="translate(0 2.125)"/>
-    <path id="Path_5" data-name="Path 5" d="M37.357,25.875H5.929A1.308,1.308,0,0,1,4.5,24.75h0a1.308,1.308,0,0,1,1.429-1.125H37.357a1.308,1.308,0,0,1,1.429,1.125h0A1.308,1.308,0,0,1,37.357,25.875Z" transform="translate(0 4.25)"/>
-  </g>
-</svg>
 
+  <!-- close menu -->
+  <button class="pw-close-btn">
+    <span></span>
+    <span></span>
+  </button>
 
+</div>
 
+  
+
+  <!-- links -->
   <div class="pw-links">
     <?php if (has_nav_menu( 'navbar-center')) : ?>
       <?php wp_nav_menu($nav_center_args); ?>
@@ -58,27 +84,45 @@
     <?php endif; ?>
   </div>    
 </nav>
-<div class="pw-sidebar-bar">
 
-</div>
 
 
 <script>
 
-  function SidebarDropdown(){
+  pw.navbar = {};
+ 
+  pw.navbar.dropdownHandler = () =>{
 
     const parents = document.querySelectorAll('.menu-item-has-children');
-        
     parents.forEach(parent =>{
-      const arrow = parent.querySelector('.pw-arrow');
+      const arrow = parent.querySelector('.pw-dynamic-arrow');
       const submenu = parent.querySelector('.sub-menu');
       arrow.addEventListener('click', ()=>{
         submenu.classList.toggle('pw-open');
+        arrow.querySelectorAll('span').forEach(span =>{
+          span.classList.toggle('pw-open');
+        })
       });
     })
   }
+
+  pw.navbar.sidebarHandler = ()=>{
+    const sidebar = document.querySelector('.pw-navbar');
+
+    const menuBtn = document.querySelector('.pw-sidebar-bar .pw-hamburger-menu');
+    menuBtn.addEventListener('click', ()=>{
+      sidebar.classList.add('pw-open');
+    });
+
+    const closeBtn = document.querySelector('.pw-navbar .pw-close-btn');
+    closeBtn.addEventListener('click', ()=>{
+      sidebar.classList.remove('pw-open');
+
+    });
+  }
  
-  SidebarDropdown();
+  pw.navbar.dropdownHandler();
+  pw.navbar.sidebarHandler();
 
 
 </script>
@@ -89,6 +133,39 @@
 
 $navbar-height: 80px;
 $sidebar-height: 56px;
+
+
+.pw-sidebar-bar{
+  display: none;
+
+  @include media($tablet){
+    @include size(100%, $sidebar-height);
+    display: flex;
+    align-items: center;
+    position: fixed;
+    background-color: white;
+     
+
+
+    .pw-hamburger-menu{
+      position: absolute;
+      right: 25px;
+      @include flexbox(column, space-between);
+      @include size(42px, 32px);
+      padding: 5px;
+      border: none;
+      background-color: inherit;
+      cursor: pointer;
+      
+      span{
+        @include size(100%, 1px);
+        border-top: 2px solid black;
+      }
+    }
+
+
+  }
+}
 
 
 .pw-navbar {
@@ -102,11 +179,16 @@ $sidebar-height: 56px;
   text-transform: uppercase;
   box-shadow: 0px 1px 3px 0px rgba(85,85,85,0.25);
 
-  .custom-logo-link{    
-    max-height: 60px;
+  .pw-close-btn {
+    display: none;
+  }
+
+  .custom-logo-link{
+    $logo-height: 48px;
+    max-height: $logo-height;
     width: auto;
     .custom-logo{
-      max-height: 60px;
+      max-height: $logo-height;
       width: auto;
     }
   }  
@@ -139,16 +221,35 @@ $sidebar-height: 56px;
               box-shadow: 0px 0px 2px 1px rgba(85,85,85,0.25);  
               li{
                 height: 48px;
+                transition: height 0.4s;  
               }             
             }
           }
 
-          .pw-arrow{
+          .pw-dynamic-arrow{
             position: absolute;
             top: 0px;
-            line-height: $navbar-height;
+            height: $navbar-height;            
             right: 20px;
-            cursor: pointer;            
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            span {
+              display: inline-block;
+              width: 8px;
+              height: 1px;
+              background-color: black;
+              //transition: transform 0.4s;
+              
+              &:first-child {
+                transform: rotate(45deg);               
+              }
+              &:last-child{
+                transform: rotate(-45deg);
+                margin-left: -3px;
+                
+              }
+            }            
           }
 
           .sub-menu {    
@@ -166,7 +267,7 @@ $sidebar-height: 56px;
               line-height: 48px;
               margin-left: 20px;
               font-size: 0.9em;  
-              transition: height 0.25s;  
+              transition: height 0s;  
             }
           }      
         }
@@ -176,29 +277,68 @@ $sidebar-height: 56px;
   
 
   @include media($tablet){
-    $sidebar-lateral: 25px;     
 
-    @include size(280px, 100%);
-    padding: 0px;
+    $sidebar-lateral: 25px;  
+    $sidebar-width: 280px;
+    transition: left 0.4s;
+
+    @include size($sidebar-width, 100%);
     @include flexbox(column, start, start);
+
+    padding: 0px;    
     position: fixed;
+    left: -#{$sidebar-width};
     overflow-x: hidden;
     overflow-y: auto;
     
-    left: 0px;
+   
     flex-direction: column;
     justify-content: start;
     align-items: start;
 
-    .custom-logo-link{
-      $logo-height: 30px;
-      position: relative;
-      max-height: $logo-height;
-      margin: calc((#{$sidebar-height} - #{$logo-height}) / 2) $sidebar-lateral;    
-      .custom-logo {
-        max-height: $logo-height;
+    &.pw-open{
+      left: 0px;
+    }
+
+    .pw-top-sidebar{
+      @include flexbox(row, space-between);
+      @include size(100%, $sidebar-height);
+      padding: 0px $sidebar-lateral;
+
+      .pw-close-btn {
+        @include flexbox(column, space-between);
+        @include size(32px, 32px);
+        padding: 5px;
+        border: none;
+        background-color: inherit;   
+        cursor: pointer;
+        margin-right: -4px;
+        span{
+          width: calc(100% + 8px);
+          border-top: 2px solid black;
+          margin-left: -8px;
+
+          &:first-child{
+            transform-origin: top right;
+            transform: rotate(-43deg);
+          }
+
+          &:last-child{
+            transform-origin: bottom right;
+            transform: rotate(43deg);
+          }
+        }     
       }
-      
+
+      .custom-logo-link {
+        $logo-height: 36px;
+        position: relative;
+        max-height: $logo-height;
+        margin: calc((#{$sidebar-height} - #{$logo-height}) / 2) 0px;    
+        .custom-logo {
+          max-height: $logo-height;
+        }
+      }
 
     }
 
@@ -241,8 +381,8 @@ $sidebar-height: 56px;
               }
             }           
             
-            .pw-arrow{
-              line-height: 40px;
+            .pw-dynamic-arrow{
+              height: 40px;
               top: 0px;
               right: -20px;
               cursor: pointer;  
@@ -250,6 +390,18 @@ $sidebar-height: 56px;
               margin-left: unset;
               text-align: center;
               font-size: 18px;
+              span {
+                &:first-child{
+                  &.pw-open{
+                    transform: rotate(-45deg); 
+                  }
+                }
+                &:last-child{
+                  &.pw-open{
+                    transform: rotate(45deg); 
+                  }
+                }
+              }
             }
 
             .sub-menu{
@@ -263,15 +415,14 @@ $sidebar-height: 56px;
               &.pw-open{
                 li {
                   height: 48px;
-                }              
-              }              
-            }
+                }           
+              }               
+            } 
           }
         }
       }
     }
   }
-
 }
 
 
