@@ -4,10 +4,10 @@ const sass = require('gulp-sass')(require('sass'));
 const extract = require('./extract');
 
 
-const path = {
+const path = {  
   components : 'src/**/*.php',
   scss: 'src/scss/index.scss',
-  js: 'src/js/index.js'
+  js: 'src/js/index.js',  
 };
 
 
@@ -42,7 +42,9 @@ function templateTask(){
 
 
 function watchTask(){
-  watch([path.components, path.scss, path.js], parallel(scssTask, jsTask, templateTask));
+  watch(
+    Object.values(path), 
+    parallel(scssTask, jsTask, templateTask));
 }
 
 

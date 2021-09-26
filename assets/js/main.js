@@ -6,9 +6,11 @@ const pw = {};
   pw.navbar.dropdownHandler = () =>{
 
     const parents = document.querySelectorAll('.menu-item-has-children');
+    
     parents.forEach(parent =>{
       const arrow = parent.querySelector('.pw-dynamic-arrow');
       const submenu = parent.querySelector('.sub-menu');
+
       arrow.addEventListener('click', ()=>{
         submenu.classList.toggle('pw-open');
         arrow.querySelectorAll('span').forEach(span =>{
@@ -16,6 +18,7 @@ const pw = {};
         })
       });
     })
+
   }
 
   pw.navbar.sidebarHandler = ()=>{
@@ -35,5 +38,8 @@ const pw = {};
  
   pw.navbar.dropdownHandler();
   pw.navbar.sidebarHandler();
+
+
+
 
 

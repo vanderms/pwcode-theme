@@ -94,9 +94,11 @@
   pw.navbar.dropdownHandler = () =>{
 
     const parents = document.querySelectorAll('.menu-item-has-children');
+    
     parents.forEach(parent =>{
       const arrow = parent.querySelector('.pw-dynamic-arrow');
       const submenu = parent.querySelector('.sub-menu');
+
       arrow.addEventListener('click', ()=>{
         submenu.classList.toggle('pw-open');
         arrow.querySelectorAll('span').forEach(span =>{
@@ -104,6 +106,7 @@
         })
       });
     })
+
   }
 
   pw.navbar.sidebarHandler = ()=>{
@@ -242,7 +245,7 @@ $sidebar-height: 56px;
               //transition: transform 0.4s;
               
               &:first-child {
-                transform: rotate(45deg);               
+                transform: rotate(45deg);            
               }
               &:last-child{
                 transform: rotate(-45deg);
@@ -273,7 +276,7 @@ $sidebar-height: 56px;
         }
       }
     }
-  } //behold the pyramid of doom!!!
+  }
   
 
   @include media($tablet){
