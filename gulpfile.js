@@ -2,16 +2,18 @@ const { src, dest, watch, series, parallel } = require('gulp');
 const concat = require('gulp-concat');
 const sass = require('gulp-sass')(require('sass'));
 const extract = require('./extract');
+const cmd = require('node-cmd');
 
 
 const path = {  
   components : 'src/**/*.php',
   scss: 'src/scss/index.scss',
-  js: 'src/js/index.js',  
+  js: 'src/js/index.js', 
+  images: 'src/images/**/*.{png,jpeg,jpg}' 
 };
 
 
-function scssTask(){
+function scssTask(){  
   return (
     src([path.scss, path.components])
       .pipe(extract('style'))
@@ -22,7 +24,7 @@ function scssTask(){
 }
 
 
-function jsTask(){
+function jsTask(){  
   return (
     src([path.js, path.components])
       .pipe(extract('script'))
@@ -31,8 +33,7 @@ function jsTask(){
   );
 }
 
-
-function templateTask(){
+function templateTask(){  
   return(
     src(path.components)
       .pipe(extract('php'))
@@ -41,14 +42,32 @@ function templateTask(){
 }
 
 
-function watchTask(){
-  watch(
-    Object.values(path), 
-    parallel(scssTask, jsTask, templateTask));
+async function imageTask(){  
+  cmd.run('python main.py', function(err, data, stderr){
+    console.log(data)
+  })
+}
+
+
+//watchers
+function watchScssPath(){
+  watch([path.scss], scssTask);
+}
+
+function watchJsPath(){
+  watch([path.js], jsTask);
+}
+
+function watchComponentPath(){
+  watch([path.components], parallel(jsTask, scssTask, templateTask));
+}
+
+function watchImagePath(){
+  watch([path.images], imageTask);
 }
 
 
 exports.default = series(
-  parallel(scssTask, jsTask, templateTask),
-  watchTask
+  parallel(scssTask, jsTask, templateTask, imageTask),
+  parallel(watchComponentPath, watchImagePath, watchScssPath, watchJsPath)
 );
