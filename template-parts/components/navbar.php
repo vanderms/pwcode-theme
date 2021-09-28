@@ -32,7 +32,7 @@
 ?>
 
 
-<div class="pw-navbar-placeholder"></div>
+
 
 <div class="pw-sidebar-bar">  
   <button class="pw-hamburger-menu">
@@ -43,9 +43,6 @@
 </div>
 
 <nav class="pw-navbar">
-
-
-
 
 <div class="pw-top-sidebar">
 
@@ -84,6 +81,7 @@
     <?php endif; ?>
   </div>    
 </nav>
+<div class="pw-navbar-placeholder"></div>
 
 
 

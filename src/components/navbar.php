@@ -32,7 +32,7 @@
 ?>
 
 
-<div class="pw-navbar-placeholder"></div>
+
 
 <div class="pw-sidebar-bar">  
   <button class="pw-hamburger-menu">
@@ -43,9 +43,6 @@
 </div>
 
 <nav class="pw-navbar">
-
-
-
 
 <div class="pw-top-sidebar">
 
@@ -84,6 +81,7 @@
     <?php endif; ?>
   </div>    
 </nav>
+<div class="pw-navbar-placeholder"></div>
 
 
 
@@ -138,6 +136,13 @@ $navbar-height: 80px;
 $sidebar-height: 56px;
 
 
+.pw-navbar-placeholder{
+  height: $navbar-height;
+  @include media($tablet){
+    height: $sidebar-height;
+  }
+}
+
 .pw-sidebar-bar{
   display: none;
 
@@ -181,6 +186,8 @@ $sidebar-height: 56px;
   @include container;
   text-transform: uppercase;
   box-shadow: 0px 1px 3px 0px rgba(85,85,85,0.25);
+  position: fixed;
+  z-index: 100;
 
   .pw-close-btn {
     display: none;
@@ -196,11 +203,11 @@ $sidebar-height: 56px;
     }
   }  
   .pw-links{
-    @include flexbox(row, start);     
+    @include flexbox(row, flex-start);     
 
     .menu {
     
-      @include flexbox(row, start);
+      @include flexbox(row, flex-start);
       &:not(:first-of-type){
         margin-left: 80px;
       }
@@ -286,7 +293,7 @@ $sidebar-height: 56px;
     transition: left 0.4s;
 
     @include size($sidebar-width, 100%);
-    @include flexbox(column, start, start);
+    @include flexbox(column, flex-start);
 
     padding: 0px;    
     position: fixed;
@@ -296,8 +303,8 @@ $sidebar-height: 56px;
     
    
     flex-direction: column;
-    justify-content: start;
-    align-items: start;
+    justify-content: flex-start;
+    align-items: flex-start;
 
     &.pw-open{
       left: 0px;
@@ -346,14 +353,14 @@ $sidebar-height: 56px;
     }
 
     .pw-links{
-      @include flexbox(column, start, start);
+      @include flexbox(column, flex-start);
       width: 100%;
       padding: 60px $sidebar-lateral 100px $sidebar-lateral;
       //margin-top: 40px;
       border-top: 1px solid gainsboro;
 
       .menu{
-        @include flexbox(column, start, start);
+        @include flexbox(column, flex-start);
         width: 100%;
         &:not(:first-of-type){
           margin-left: 0px;

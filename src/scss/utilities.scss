@@ -16,25 +16,40 @@ $rounded: 5px;
 }
 
 //container
-@mixin container(){
-  padding-right: calc(50% - 650px);
-  padding-left: calc(50% - 650px);
+@mixin container($left: true, $right: true){
 
-  @include media($laptop){
-    padding-right: 8%;
-    padding-left: 8%;
-  }  
-  @include media($tablet){
-    padding-right: 6%;
-    padding-left: 6%;
+  @if $right {
+    padding-right: calc(50% - 650px);
+
+    @include media($laptop){
+      padding-right: 8%;      
+    }  
+    @include media($tablet){
+      padding-right: 6%;      
+    }
+    @include media($mobile){
+      padding-right: 3%;      
+    }
+    @include media($small-mobile){
+      padding-right: 2px;      
+    }
   }
-  @include media($mobile){
-    padding-right: 3%;
-    padding-left: 3%;
-  }
-  @include media($small-mobile){
-    padding-right: 2px;
-    padding-left: 2px;
+
+  @if $left {
+    padding-left: calc(50% - 650px);
+
+    @include media($laptop){     
+      padding-left: 8%;
+    }  
+    @include media($tablet){      
+      padding-left: 6%;
+    }
+    @include media($mobile){      
+      padding-left: 3%;
+    }
+    @include media($small-mobile){      
+      padding-left: 2px;
+    }
   }
 }
 

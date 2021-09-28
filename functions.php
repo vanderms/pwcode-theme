@@ -6,12 +6,27 @@ add_action('after_setup_theme', function(){
   add_theme_support( 'automatic-feed-links' );
 	add_theme_support('title-tag');
   add_theme_support('post-thumbnails');
+
+  
+  //custom header
+  $custom_header_options = ['width' => 1920, 'height' => 1080];
+  $default_image = '/assets/images/1920/cover.jpg';
+  if(file_exists(get_template_directory().$default_image)):
+    $custom_header_options['default-image'] = get_template_directory_uri(). $default_image;
+  endif;
+
+  add_theme_support( 'custom-header', $custom_header_options);
+
+
+  //navegation menus
   register_nav_menus(
     [ 'navbar-center' => 'Barra de Navegação - Centro',
       'navbar-right' => 'Barra de Navegação - Direita'
     ]    
   );
  
+
+  //custom logo
   add_theme_support( 'custom-logo', [
     'height'               => 60,
     'width'                => 60,
@@ -37,4 +52,27 @@ add_action('wp_enqueue_scripts', function(){
 });
 
 
+
+//header image, include style
+add_action('wp_head', function(){
+  if(has_header_image()):
+    echo ("<style>.pw-header-image{background-image:url(". 
+      esc_url(get_header_image()) . 
+      ");}</style>"
+    );
+  endif;
+});
+
+
+//header image, register
+register_default_headers( [
+  'default-image' => [
+      'url'           => get_stylesheet_directory_uri() . '/assets/images/1920/cover.jpg',
+      'thumbnail_url' => get_stylesheet_directory_uri() . '/assets/images/1920/cover.jpg',
+      'description'   => __( 'Default Header Image', 'textdomain' )
+  ],
+ ]);
+
+
 ?>
+

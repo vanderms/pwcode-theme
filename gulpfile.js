@@ -3,11 +3,15 @@ const concat = require('gulp-concat');
 const sass = require('gulp-sass')(require('sass'));
 const extract = require('./extract');
 const cmd = require('node-cmd');
+const postcss = require('gulp-postcss');
+const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano');
 
 
 const path = {  
   components : 'src/**/*.php',
   scss: 'src/scss/index.scss',
+  scss_utilities: 'src/scss/utilities.scss',
   js: 'src/js/index.js', 
   images: 'src/images/**/*.{png,jpeg,jpg}' 
 };
@@ -18,6 +22,7 @@ function scssTask(){
     src([path.scss, path.components])
       .pipe(extract('style'))
       .pipe(sass())
+      .pipe(postcss([autoprefixer(), cssnano()]))
       .pipe(concat('styles.css'))
       .pipe(dest('assets/css'))
   );
@@ -51,7 +56,7 @@ async function imageTask(){
 
 //watchers
 function watchScssPath(){
-  watch([path.scss], scssTask);
+  watch([path.scss, path.scss_utilities], scssTask);
 }
 
 function watchJsPath(){
