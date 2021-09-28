@@ -18,7 +18,34 @@ body{
 
 .pw-navbar {
   background-color: white;
-  color: black; 
+  color: black;
+
+  .pw-links .menu > li {
+
+    &:hover{
+      color: $primary;
+    }
+
+    &.pw-orcamento{
+      margin-left: 80px;
+      
+      @include media($tablet){
+        margin-left: 0px;
+        margin-top: 40px;
+      }
+      a{
+        @include cta-primary;
+        &:hover{
+          padding: 7px 15px;
+          background-color: white;
+          color: $primary-dark;
+          border: 1px solid $primary-dark;
+          
+        }       
+      }  
+    }
+  }
+  
 
   .sub-menu{
     background-color: white;

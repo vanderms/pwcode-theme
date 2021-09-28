@@ -360,7 +360,7 @@ $sidebar-height: 56px;
       border-top: 1px solid gainsboro;
 
       .menu{
-        @include flexbox(column, flex-start);
+        @include flexbox(column, flex-start, flex-start);
         width: 100%;
         &:not(:first-of-type){
           margin-left: 0px;

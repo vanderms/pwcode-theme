@@ -9,6 +9,8 @@
       CONSTRUINDO <span>SUAS IDEIAS</span> EM UM <span>MUNDO</span> DIGITAL
     </h1>
     <div class="pw-cta-container">
+      <a href="/" class="pw-cta-primary">SOLICITE SEU ORÇAMENTO</a>
+      <a href="/" class="pw-cta-secondary">VEJA NOSSO PORTFÓLIO</a>
 
     </div>
   </header>

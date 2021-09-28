@@ -1,3 +1,10 @@
+//colors
+$primary: #008064;
+$primary-light: #00BB94;
+$primary-dark: #005946;
+$bg-light-blog: #E5E3E1;
+
+
 
 //breakpoints
 $laptop: 1499px;
@@ -6,7 +13,7 @@ $mobile: 679px;
 $small-mobile: 359px;
 
 //rounded borders
-$rounded: 5px;
+$rounded: 1000px;
 
 //media
 @mixin media($breakpoint){
@@ -75,19 +82,22 @@ $rounded: 5px;
 
 @mixin cta-primary{  
   cursor: pointer;
-  padding: 8px 16px;
-  font-weight: 500;
+  padding: 8px 16px;  
+  background-color: $primary;
+  color: white;
+  text-decoration: none;
   border: none;
-  border-radius: $rounded;
+  border-radius: $rounded;  
 }
 
 
 @mixin cta-secondary{  
   cursor: pointer;
-  border: 1px solid $primary;
-  padding: 7px 15px;
-  font-weight: 500; 
-  border-radius: $rounded;
+  border: 1px solid $primary-dark;
+  color: $primary-light;
+  text-decoration: none;
+  padding: 7px 15px;  
+  border-radius: $rounded;  
 }
 
 @mixin anchor-child{
