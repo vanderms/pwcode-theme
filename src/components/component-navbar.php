@@ -1,5 +1,4 @@
-<?php
-  namespace pw\com\theme;
+<?php namespace pw\com\theme;
     
   class MenuWalker extends \Walker_Nav_Menu {
     
@@ -31,10 +30,8 @@
 
 ?>
 
-
-
-
 <div class="pw-sidebar-bar">  
+  <!-- menu button -->
   <button class="pw-hamburger-menu">
     <span class="pw-top"></span>
     <span class="pw-middle"></span>
@@ -46,7 +43,7 @@
 
 <div class="pw-top-sidebar">
 
-  <!-- logo -->
+  <!-- logo -->  
   <?php if(has_custom_logo()): ?>
       <?php the_custom_logo(); ?>
     <?php elseif(file_exists(get_template_directory().'/assets/images/logo.svg')): ?>
@@ -60,7 +57,7 @@
       <span class="pw-logo-placeholder"></span>
   <?php endif; ?>
 
-  <!-- close menu -->
+  <!-- close button -->
   <button class="pw-close-btn">
     <span></span>
     <span></span>
@@ -68,22 +65,23 @@
 
 </div>
 
-  
-
   <!-- links -->
   <div class="pw-links">
+    
+  <!-- Menu central -->
     <?php if (has_nav_menu( 'navbar-center')) : ?>
       <?php wp_nav_menu($nav_center_args); ?>
     <?php endif; ?>
-      
+
+    <!-- Menu Lateral -->  
     <?php if (has_nav_menu( 'navbar-right')) : ?>
       <?php wp_nav_menu($nav_right_args);?>    
     <?php endif; ?>
+  
   </div>    
 </nav>
+
 <div class="pw-navbar-placeholder"></div>
-
-
 
 <script>
 
@@ -170,8 +168,6 @@ $sidebar-height: 56px;
         border-top: 2px solid black;
       }
     }
-
-
   }
 }
 
@@ -434,6 +430,5 @@ $sidebar-height: 56px;
     }
   }
 }
-
 
 </style>

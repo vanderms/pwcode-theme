@@ -9,11 +9,11 @@ const cssnano = require('cssnano');
 
 
 const path = {  
-  components : 'src/**/*.php',
+  components : 'src/components/**/*.php',
   scss: 'src/scss/index.scss',
   scss_utilities: 'src/scss/utilities.scss',
   js: 'src/js/index.js', 
-  images: 'src/images/**/*.{png,jpeg,jpg}' 
+  images: 'src/images/**/*.{png,jpeg,jpg}'
 };
 
 

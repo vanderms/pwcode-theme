@@ -27,12 +27,8 @@ body{
     }
 
     &.pw-orcamento{
-      margin-left: 80px;
-      
-      @include media($tablet){
-        margin-left: 0px;
-        margin-top: 40px;
-      }
+      margin-left: 80px;      
+     
       a{
         @include cta-primary;
         &:hover{
@@ -42,7 +38,14 @@ body{
           border: 1px solid $primary-dark;
           
         }       
-      }  
+      }
+      @include media($tablet){
+        margin-left: 0px;
+        margin-top: 40px;
+        a{
+          border-radius: 5px;
+        }
+      }
     }
   }
   
