@@ -1,9 +1,7 @@
 <?php 
   $slogan = get_theme_mod('pw-section-cover-slogan');
   $slogan = str_replace(["{{", "}}"], ["<span>", "</span>"], $slogan);
-
 ?>
-
 
 <section class="pw-cover pw-header-image">
   <div class="pw-cover-background pw-header-image"></div>
