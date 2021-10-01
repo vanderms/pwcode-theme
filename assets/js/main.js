@@ -1,9 +1,13 @@
 
-const pw = {};
-
-  pw.navbar = {};
+const pw = {
+  component: {}, 
+  section: {}, 
+  page: {}
+};
+  
+  pw.component.navbar = {};
  
-  pw.navbar.dropdownHandler = () =>{
+  pw.component.navbar.dropdownHandler = () =>{
 
     const parents = document.querySelectorAll('.menu-item-has-children');
     
@@ -21,7 +25,7 @@ const pw = {};
 
   }
 
-  pw.navbar.sidebarHandler = ()=>{
+  pw.component.navbar.sidebarHandler = ()=>{
     const sidebar = document.querySelector('.pw-navbar');
 
     const menuBtn = document.querySelector('.pw-sidebar-bar .pw-hamburger-menu');
@@ -36,10 +40,12 @@ const pw = {};
     });
   }
  
-  pw.navbar.dropdownHandler();
-  pw.navbar.sidebarHandler();
+  pw.component.navbar.dropdownHandler();
+  pw.component.navbar.sidebarHandler();
 
 
 
+  
 
+  
 

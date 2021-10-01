@@ -1,2 +1,6 @@
 
-const pw = {};
+const pw = {
+  component: {}, 
+  section: {}, 
+  page: {}
+};

@@ -84,10 +84,10 @@
 <div class="pw-navbar-placeholder"></div>
 
 <script>
-
-  pw.navbar = {};
+  
+  pw.component.navbar = {};
  
-  pw.navbar.dropdownHandler = () =>{
+  pw.component.navbar.dropdownHandler = () =>{
 
     const parents = document.querySelectorAll('.menu-item-has-children');
     
@@ -105,7 +105,7 @@
 
   }
 
-  pw.navbar.sidebarHandler = ()=>{
+  pw.component.navbar.sidebarHandler = ()=>{
     const sidebar = document.querySelector('.pw-navbar');
 
     const menuBtn = document.querySelector('.pw-sidebar-bar .pw-hamburger-menu');
@@ -120,8 +120,8 @@
     });
   }
  
-  pw.navbar.dropdownHandler();
-  pw.navbar.sidebarHandler();
+  pw.component.navbar.dropdownHandler();
+  pw.component.navbar.sidebarHandler();
 
 
 </script>

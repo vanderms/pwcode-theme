@@ -5,8 +5,8 @@ add_action('after_setup_theme', function(){
 
   add_theme_support( 'automatic-feed-links' );
 	add_theme_support('title-tag');
-  add_theme_support('post-thumbnails');
-  
+  add_theme_support('post-thumbnails');  
+
   //custom header
   $custom_header_options = ['width' => 1920, 'height' => 1080];
   $default_image = '/assets/images/1920/cover.jpg';
