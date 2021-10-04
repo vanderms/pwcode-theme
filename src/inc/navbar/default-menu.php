@@ -15,7 +15,7 @@ if(!wp_get_nav_menu_object($menu_name)):
 
   wp_update_nav_menu_item($menu_id, 0, [
     'menu-item-title' =>  "SOBRE",   
-    'menu-item-url' => home_url( '/sobre' ), 
+    'menu-item-url' => home_url( '#sobre' ),
     'menu-item-status' => 'publish'
   ]);
 

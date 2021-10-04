@@ -77,9 +77,6 @@ register_default_headers( [
 require_once get_template_directory() . '/src/inc/navbar/default-menu.php';
 
 
-//customize cover section
-require_once get_template_directory(). '/src/inc/cover/customize.php';
-
 
 
 
