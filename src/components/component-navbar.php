@@ -30,8 +30,7 @@
 
 ?>
 
-<div class="pw-sidebar-bar">  
-  <!-- menu button -->
+<div class="pw-sidebar-bar">   
   <button class="pw-hamburger-menu">
     <span class="pw-top"></span>
     <span class="pw-middle"></span>
@@ -82,6 +81,7 @@
 </nav>
 
 <div class="pw-navbar-placeholder"></div>
+<div class="pw-navbar-backdrop"></div>
 
 <script>
   
@@ -106,18 +106,29 @@
   }
 
   pw.component.navbar.sidebarHandler = ()=>{
+
     const sidebar = document.querySelector('.pw-navbar');
 
+    const backdrop = document.querySelector('.pw-navbar-backdrop');
+    
     const menuBtn = document.querySelector('.pw-sidebar-bar .pw-hamburger-menu');
-    menuBtn.addEventListener('click', ()=>{
-      sidebar.classList.add('pw-open');
-    });
 
     const closeBtn = document.querySelector('.pw-navbar .pw-close-btn');
-    closeBtn.addEventListener('click', ()=>{
-      sidebar.classList.remove('pw-open');
 
-    });
+    const close = () => {
+      sidebar.classList.remove('pw-open');
+      backdrop.classList.remove('pw-open');
+    }
+
+    const open = () => {
+      sidebar.classList.add('pw-open');
+      backdrop.classList.add('pw-open');
+    }
+
+    menuBtn.addEventListener('click', open);    
+    closeBtn.addEventListener('click', close);
+    backdrop.addEventListener('click', close);
+
   }
  
   pw.component.navbar.dropdownHandler();
@@ -139,11 +150,26 @@ $sidebar-height: 56px;
   }
 }
 
+.pw-navbar-backdrop{
+  display: none;
+  &.pw-open{
+    display: block;
+    @include size(100%, 100vh);
+    top: 0px;
+    left: 0px;   
+    position: fixed;
+    z-index: 96;
+    background-color: black;
+    opacity: 0.8;
+  }
+}
+
 .pw-sidebar-bar{
   display: none;
 
   @include media($tablet){
     @include size(100%, $sidebar-height);
+    z-index: 92;
     display: flex;
     align-items: center;
     position: fixed;

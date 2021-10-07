@@ -30,8 +30,7 @@
 
 ?>
 
-<div class="pw-sidebar-bar">  
-  <!-- menu button -->
+<div class="pw-sidebar-bar">   
   <button class="pw-hamburger-menu">
     <span class="pw-top"></span>
     <span class="pw-middle"></span>
@@ -82,4 +81,5 @@
 </nav>
 
 <div class="pw-navbar-placeholder"></div>
+<div class="pw-navbar-backdrop"></div>
 

@@ -33,6 +33,7 @@ add_action('after_setup_theme', function(){
     'flex-width'           => true,
     'header-text'          => ['pwcode-logo'],
   ]);
+
 });
 
 
@@ -78,6 +79,35 @@ require_once get_template_directory() . '/src/inc/navbar/default-menu.php';
 
 
 
+add_action('init', function(){
+
+  register_post_type('pw-services', 
+    [
+      'labels' => [
+        'name' => 'Serviços',
+        'singular_name' => 'Serviço'
+      ],
+      'hierarchical' => true,
+      'public' => true,
+      'menu_icon' => 'dashicons-admin-page',
+      'has_archive' => false,
+      'supports' => ['title', 'editor', 'custom-fields'],
+      'rewrite' => ['slug' => 'servicos']
+    ]
+  );
+
+});
+
+
+add_action('add_meta_boxes', function(){
+  
+  $callback = function(){
+    get_template_part('template-parts/component', 'servicemetabox');
+  };
+
+  add_meta_box('my-meta-box', "Font Awesome icone", $callback, 'pw-services');
+
+});
 
 
 
