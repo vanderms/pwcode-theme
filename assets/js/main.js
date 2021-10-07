@@ -4,6 +4,7 @@ const pw = {
   section: {}, 
   page: {}
 };
+
   
   pw.component.navbar = {};
  
@@ -43,9 +44,4 @@ const pw = {
   pw.component.navbar.dropdownHandler();
   pw.component.navbar.sidebarHandler();
 
-
-
-  
-
-  
 

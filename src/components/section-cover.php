@@ -1,5 +1,5 @@
+<section class="pw-cover">
 
-<section class="pw-cover">  
   <img src="<?php echo get_header_image(); ?>" 
     class='pw-bg-image' alt="imagem de fundo" onerror='this.classList.add("hidden");'
   > 
@@ -18,12 +18,7 @@
   </header>
 </section>
 
-<script>
-  
-
-  
-
-</script>
+<script></script>
 
 <style lang='scss'>
   @import "../scss/utilities.scss";

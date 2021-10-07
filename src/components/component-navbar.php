@@ -122,8 +122,6 @@
  
   pw.component.navbar.dropdownHandler();
   pw.component.navbar.sidebarHandler();
-
-
 </script>
 
 

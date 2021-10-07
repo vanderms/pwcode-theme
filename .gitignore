@@ -25,3 +25,6 @@ yarn-error.log*
 
 #images in source folder
 /src/images
+
+#font awesome
+/assets/css/font-awesome-5/
