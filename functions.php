@@ -48,7 +48,6 @@ add_action('wp_enqueue_scripts', function(){
   wp_enqueue_style('pwcode-font-awesome', $awesome_path, false, '5.15.4', 'all');
   wp_enqueue_style('pwcode-stylescss', $css_path, false, $version, 'all');
   wp_enqueue_script('pwcode-mainjs',  $js_path, false, $version, true);
-
 });
 
 
@@ -73,43 +72,10 @@ register_default_headers( [
   ],
 ]);
 
-
 //create default nav menu
 require_once get_template_directory() . '/src/inc/navbar/default-menu.php';
 
-
-
-add_action('init', function(){
-
-  register_post_type('pw-services', 
-    [
-      'labels' => [
-        'name' => 'Serviços',
-        'singular_name' => 'Serviço'
-      ],
-      'hierarchical' => true,
-      'public' => true,
-      'menu_icon' => 'dashicons-admin-page',
-      'has_archive' => false,
-      'supports' => ['title', 'editor', 'custom-fields'],
-      'rewrite' => ['slug' => 'servicos']
-    ]
-  );
-
-});
-
-
-add_action('add_meta_boxes', function(){
-  
-  $callback = function(){
-    get_template_part('template-parts/component', 'servicemetabox');
-  };
-
-  add_meta_box('my-meta-box', "Font Awesome icone", $callback, 'pw-services');
-
-});
-
-
+//service custom page
+require_once get_template_directory(). '/src/inc/services/custom-page.php';
 
 ?>
-

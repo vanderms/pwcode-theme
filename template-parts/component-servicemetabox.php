@@ -6,13 +6,18 @@
       align-items: center;
     }
 
-    #pw-icon-input{
+    .pw-icon-metabox{
       margin-left: 20px;
     }
 
   </style>
   <div class="pw-field">
     <label for="">Classe: </label>
-    <input id='pw-icon-input' type="text">
+    <input 
+      class='pw-icon-metabox' 
+      type="text"
+      name = 'pw-icon'
+      value = "<?php esc_attr_e(get_post_meta(get_the_ID(), 'pw-icon', true)); ?>"  
+    >
   </div>
 </div>
