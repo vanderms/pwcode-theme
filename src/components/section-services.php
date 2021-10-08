@@ -8,8 +8,6 @@
   ]);
 
 ?>
-
-
 <section class="pw-section-vp pw-section-services">
   <?php get_template_part('template-parts/component', 'header', ['icon' => 'tools']) ?>
   <div class="pw-cards-container">
@@ -22,14 +20,14 @@
     <?php echo the_excerpt(); ?>
   </article>
 <?php endwhile; ?>
-
-
 </section>
 
+<script>
+
+pw.util.setEllipsis(document.querySelectorAll('.pw-icon-card p')[0]);
 
 
-
-<script></script>
+</script>
 
 <style lang='scss'>
   @import "../scss/utilities.scss";
@@ -53,13 +51,15 @@
 
         .pw-title{
           font-size: 20px;
+          font-weight: 600;
           color: $primary-light;
         }
 
         p{
-          line-height: 22px;
-          max-height: 88px;
-          overflow: hidden;                     
+          line-height: 1.6;
+          height: 100px;
+          overflow: hidden;  
+          font-weight: 300;           
         }
       }     
     }

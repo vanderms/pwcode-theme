@@ -8,8 +8,6 @@
   ]);
 
 ?>
-
-
 <section class="pw-section-vp pw-section-services">
   <?php get_template_part('template-parts/component', 'header', ['icon' => 'tools']) ?>
   <div class="pw-cards-container">
@@ -22,10 +20,5 @@
     <?php echo the_excerpt(); ?>
   </article>
 <?php endwhile; ?>
-
-
 </section>
-
-
-
 
