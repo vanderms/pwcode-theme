@@ -26,10 +26,10 @@
   
   .pw-component-header {   
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 80px;
     
     h2 {
-      margin: 0px 0px 10px 0px;
+      margin: 0px;
       font-size: 32px;
       font-weight: 600;
       color: $primary-light;
