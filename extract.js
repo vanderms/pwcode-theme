@@ -6,43 +6,28 @@ function getTagContent(tagName, file){
     return file;
   }
   
-  let str = file.contents;  
-  let start = 0;  
+  const str = file.contents;
+  let start = 0;
   let end = 0;
 
-  if(tagName === 'php'){
-    const script = str.indexOf('<script');
-    const style = str.indexOf('<style');
-    if(script > 0 && script < style){
-      end = script;
-    }
-    else if(style > 0 && style < script){
-      end= style;
-    }
-    else {
-      return file;
-    }
-  }
-  else {    
-    const startTag = `<${tagName}`;
-    const endTag = `</${tagName}>`;
-    start = str.indexOf(startTag);   
-    end = str.indexOf(endTag);
-    start = str.indexOf('\n', start + 1) + 1;
-  }
+  const startTag = `<${tagName}`;
+  const endTag = `</${tagName}>`;
+
+  start = str.indexOf(startTag);   
+  end = str.indexOf(endTag);
+
+  let out = "";
  
-  if(start === -1){    
-    str = '';      
-  }
-  else if (end == -1){    
-    str = ''; 
-  }
-  else {
-    str = str.slice(start, end);
+  if(start !== -1 && end != -1) {
+    start = str.indexOf('\n', start + 1) + 1;
+    out = str.slice(start, end);
+    if(tagName === "template"){
+      out = "<?php namespace pwcode\\com\\theme; ?>\n" + out;
+    }
   }
 
-  const strBuffer = Buffer.alloc(str.length, str);
-  file.contents = strBuffer;
+  const outBuffer = Buffer.from(out);
+  file.contents = outBuffer;
   return file;
 }
 

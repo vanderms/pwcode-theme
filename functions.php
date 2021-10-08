@@ -73,9 +73,9 @@ register_default_headers( [
 ]);
 
 //create default nav menu
-require_once get_template_directory() . '/src/inc/navbar/default-menu.php';
+require_once get_template_directory() . '/inc/navbar/default-menu.php';
 
 //service custom page
-require_once get_template_directory(). '/src/inc/services/custom-page.php';
+require_once get_template_directory(). '/inc/services/custom-page.php';
 
 ?>

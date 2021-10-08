@@ -6,9 +6,9 @@ const pw = {
   util: {}
 };
 
-pw.util.setEllipsis = function(elem){
- 
-  const text = elem.textContent; 
+
+pw.util.setEllipsis = (elem, text)=>{ 
+  
   const span = document.createElement("span");
   span.textContent = " [...]";
   
@@ -17,7 +17,7 @@ pw.util.setEllipsis = function(elem){
  
   while(max > min) {
 
-    const middle = (min + max) / 2;
+    const middle = Math.ceil((min + max) / 2);
     elem.textContent = text.substring(0, middle);
     elem.appendChild(span);
     const spanRect = span.getBoundingClientRect();
@@ -49,6 +49,7 @@ pw.util.setEllipsis = function(elem){
   elem.textContent = text;
   return false;
 }
+
 
   
   pw.component.navbar = {};
@@ -102,6 +103,27 @@ pw.util.setEllipsis = function(elem){
 
 
 
-pw.util.setEllipsis(document.querySelectorAll('.pw-icon-card p')[0]);
+pw.section.services = {};
 
+pw.section.services.ellipsisHandler = ()=>{
+  
+  const paragraphs = document.querySelectorAll('.pw-icon-card p');
+  const items = [];
+
+  paragraphs.forEach(paragraph => {
+    items.push({p : paragraph, text: paragraph.textContent});
+  });
+
+  const setup = ()=>{
+    items.forEach(item => {
+      pw.util.setEllipsis(item.p, item.text);     
+      item.p.classList.add('pw-ready');
+    });
+  }
+  
+  window.addEventListener('load', setup);
+  window.addEventListener('resize', setup);  
+}
+
+pw.section.services.ellipsisHandler();
 

@@ -1,4 +1,5 @@
-<?php namespace pw\com\theme;
+<template>
+<?php
     
   class MenuWalker extends \Walker_Nav_Menu {
     
@@ -82,6 +83,7 @@
 
 <div class="pw-navbar-placeholder"></div>
 <div class="pw-navbar-backdrop"></div>
+</template>
 
 <script>
   
@@ -137,7 +139,7 @@
 
 
 <style lang='scss'>
-@import "../scss/utilities.scss";
+@import "src/scss/utilities.scss";
 
 $navbar-height: 80px;
 $sidebar-height: 56px;

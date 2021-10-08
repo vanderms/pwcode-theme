@@ -1,4 +1,5 @@
-<?php namespace pw\com\theme;
+<?php namespace pwcode\com\theme; ?>
+<?php
     
   class MenuWalker extends \Walker_Nav_Menu {
     
@@ -82,4 +83,3 @@
 
 <div class="pw-navbar-placeholder"></div>
 <div class="pw-navbar-backdrop"></div>
-

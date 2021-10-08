@@ -24,7 +24,7 @@ add_action('init', function(){
 add_action('add_meta_boxes', function(){
   
   $callback = function(){
-    get_template_part('template-parts/component', 'servicemetabox');
+    get_template_part('inc/services/metabox');
   };
 
   add_meta_box('my-meta-box', "Font Awesome icone", $callback, 'pw-services', 'side');

@@ -9,7 +9,7 @@ const cssnano = require('cssnano');
 
 
 const path = {  
-  components : 'src/components/**/*.php',
+  modules : 'src/modules/**/*.php',
   scss: 'src/scss/index.scss',
   scss_utilities: 'src/scss/utilities.scss',
   js: 'src/js/index.js', 
@@ -19,7 +19,7 @@ const path = {
 
 function scssTask(){  
   return (
-    src([path.scss, path.components])
+    src([path.scss, path.modules])
       .pipe(extract('style'))
       .pipe(sass())
       .pipe(postcss([autoprefixer(), cssnano()]))
@@ -31,7 +31,7 @@ function scssTask(){
 
 function jsTask(){  
   return (
-    src([path.js, path.components])
+    src([path.js, path.modules])
       .pipe(extract('script'))
       .pipe(concat('main.js'))
       .pipe(dest('assets/js'))
@@ -40,8 +40,8 @@ function jsTask(){
 
 function templateTask(){  
   return(
-    src(path.components)
-      .pipe(extract('php'))
+    src(path.modules)
+      .pipe(extract('template'))
       .pipe(dest('template-parts'))
   );
 }
@@ -64,7 +64,7 @@ function watchJsPath(){
 }
 
 function watchComponentPath(){
-  watch([path.components], parallel(jsTask, scssTask, templateTask));
+  watch([path.modules], parallel(jsTask, scssTask, templateTask));
 }
 
 function watchImagePath(){

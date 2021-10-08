@@ -6,9 +6,9 @@ const pw = {
   util: {}
 };
 
-pw.util.setEllipsis = function(elem){
- 
-  const text = elem.textContent; 
+
+pw.util.setEllipsis = (elem, text)=>{ 
+  
   const span = document.createElement("span");
   span.textContent = " [...]";
   
@@ -17,7 +17,7 @@ pw.util.setEllipsis = function(elem){
  
   while(max > min) {
 
-    const middle = (min + max) / 2;
+    const middle = Math.ceil((min + max) / 2);
     elem.textContent = text.substring(0, middle);
     elem.appendChild(span);
     const spanRect = span.getBoundingClientRect();

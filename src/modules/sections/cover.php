@@ -1,5 +1,5 @@
+<template>
 <section class="pw-cover">
-
   <img src="<?php echo get_header_image(); ?>" 
     class='pw-bg-image' alt="imagem de fundo" onerror='this.classList.add("hidden");'
   > 
@@ -13,15 +13,17 @@
     </h1>
     <div class="pw-cta-container">
       <a href="/" class="pw-cta-primary">SOLICITE SEU ORÇAMENTO</a>
-      <a href="/" class="pw-cta-secondary">VEJA NOSSO PORTFÓLIO</a>
+      <a href="/" class="pw-cta-secondary">VEJA NOSSO PORTFOLIO</a>
     </div>
   </header>
 </section>
+</template>
 
-<script></script>
 
 <style lang='scss'>
-  @import "../scss/utilities.scss";
+  @import "src/scss/utilities.scss";
+
+  
   .pw-cover{
     min-height: calc(100vh - 80px);   
     position: relative;
@@ -119,13 +121,7 @@
           }
         }
       }
-
-
     }//end pw-header
-    
-   
-
-   
   }
 
 </style>
