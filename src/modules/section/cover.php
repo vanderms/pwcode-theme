@@ -2,7 +2,7 @@
 <section class="pw-cover">
   <img src="<?php echo get_header_image(); ?>" 
     class='pw-bg-image' alt="imagem de fundo" onerror='this.classList.add("hidden");'
-  > 
+  >
   <div class="pw-cover-overlay"></div>
   <header class="pw-header">
     <div class='pw-sub-heading'>

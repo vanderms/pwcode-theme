@@ -1,5 +1,7 @@
 <?php namespace pwcode\com\theme;
 
+require_once get_template_directory(). "/inc/util/util.php";
+
 
 add_action('after_setup_theme', function(){
 
@@ -77,5 +79,7 @@ require_once get_template_directory() . '/inc/navbar/default-menu.php';
 
 //service custom page
 require_once get_template_directory(). '/inc/services/custom-page.php';
+
+
 
 ?>

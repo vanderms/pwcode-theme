@@ -1,3 +1,4 @@
+<?php namespace pwcode\com\theme; ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -7,5 +8,5 @@
 </head>
 <body <?php body_class(); ?>>
   <?php wp_body_open(); ?>  
-  <?php get_template_part('template-parts/components/navbar'); ?>
+  <?php module('component/navbar'); ?>
   <main>

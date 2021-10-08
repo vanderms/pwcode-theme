@@ -1,6 +1,8 @@
+<?php namespace pwcode\com\theme; ?>
 <?php  get_header(); ?>
 
-<?php get_template_part('template-parts/sections/cover'); ?>
-<?php get_template_part('template-parts/sections/services'); ?>
+<?php module('section/cover'); ?>
+<?php module('section/services'); ?>
+<?php module('section/projects') ?>
 
 <?php get_footer(); ?>
