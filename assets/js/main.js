@@ -21,8 +21,7 @@ pw.util.setEllipsis = (elem, text)=>{
     elem.textContent = text.substring(0, middle);
     elem.appendChild(span);
     const spanRect = span.getBoundingClientRect();
-    const elemRect = elem.getBoundingClientRect();
-    console.log(middle);
+    const elemRect = elem.getBoundingClientRect();   
 
     const interval = spanRect.height - 5;
     
@@ -97,7 +96,31 @@ pw.util.setEllipsis = (elem, text)=>{
     backdrop.addEventListener('click', close);
 
   }
- 
+
+  pw.component.navbar.wpadminHandler = ()=>{
+    const wpadmin = document.querySelector("#wpadminbar");
+    if(wpadmin){
+      let running = false;
+      document.addEventListener("scroll", ()=>{
+        if(!running){
+          running = true;
+          window.requestAnimationFrame(()=>{
+            let pos = wpadmin.getBoundingClientRect().bottom;
+            pos = pos >= 0 ? `${Math.round(pos)}px` : "0px";
+            const sidebar = document.querySelector('.pw-sidebar-bar');
+            const navbar = document.querySelector('.pw-navbar');
+            sidebar.style.top = pos;
+            navbar.style.top = pos;
+            running = false;
+            console.log(pos);
+          });
+        }           
+      });
+    }
+
+  }
+
+  //pw.component.navbar.wpadminHandler()
   pw.component.navbar.dropdownHandler();
   pw.component.navbar.sidebarHandler();
 

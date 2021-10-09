@@ -21,6 +21,12 @@ $rounded: 1000px;
   }
 }
 
+@mixin only-tablet(){
+  @media screen and (min-width: 680px) and (max-width: $tablet){
+    @content;
+  }
+}
+
 //container
 @mixin container($left: true, $right: true){
 

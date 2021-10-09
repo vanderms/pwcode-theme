@@ -31,6 +31,7 @@
 
 ?>
 
+<div class="pw-sidebar-navbar-container">
 <div class="pw-sidebar-bar">   
   <button class="pw-hamburger-menu">
     <span class="pw-top"></span>
@@ -40,10 +41,7 @@
 </div>
 
 <nav class="pw-navbar">
-
-<div class="pw-top-sidebar">
-
-  <!-- logo -->  
+<div class="pw-top-sidebar"> 
   <?php if(has_custom_logo()): ?>
       <?php the_custom_logo(); ?>
     <?php elseif(file_exists(get_template_directory().'/assets/images/logo.svg')): ?>
@@ -80,6 +78,7 @@
   
   </div>    
 </nav>
+</div>
 
 <div class="pw-navbar-placeholder"></div>
 <div class="pw-navbar-backdrop"></div>
@@ -132,7 +131,31 @@
     backdrop.addEventListener('click', close);
 
   }
- 
+
+  pw.component.navbar.wpadminHandler = ()=>{
+    const wpadmin = document.querySelector("#wpadminbar");
+    if(wpadmin){
+      let running = false;
+      document.addEventListener("scroll", ()=>{
+        if(!running){
+          running = true;
+          window.requestAnimationFrame(()=>{
+            let pos = wpadmin.getBoundingClientRect().bottom;
+            pos = pos >= 0 ? `${Math.round(pos)}px` : "0px";
+            const sidebar = document.querySelector('.pw-sidebar-bar');
+            const navbar = document.querySelector('.pw-navbar');
+            sidebar.style.top = pos;
+            navbar.style.top = pos;
+            running = false;
+            console.log(pos);
+          });
+        }           
+      });
+    }
+
+  }
+
+  //pw.component.navbar.wpadminHandler()
   pw.component.navbar.dropdownHandler();
   pw.component.navbar.sidebarHandler();
 </script>
@@ -143,6 +166,23 @@
 
 $navbar-height: 80px;
 $sidebar-height: 56px;
+
+
+.admin-bar .pw-sidebar-navbar-container{
+  top: 32px;
+  @media screen and (max-width: 782px){
+    top: 46px;
+  }
+  @media screen and (max-width: 600px){
+    top: 0px;
+  }
+}
+
+.pw-sidebar-navbar-container{
+    position: sticky;
+    top: 0px;
+    z-index: 100;
+}
 
 
 .pw-navbar-placeholder{
@@ -174,9 +214,9 @@ $sidebar-height: 56px;
     z-index: 92;
     display: flex;
     align-items: center;
-    position: fixed;
+    position: absolute;
+    top: 0px;
     background-color: white;
-     
 
 
     .pw-hamburger-menu{
@@ -208,7 +248,8 @@ $sidebar-height: 56px;
   @include container;
   text-transform: uppercase;
   box-shadow: 0px 1px 3px 0px rgba(85,85,85,0.25);
-  position: fixed;
+  position: absolute;
+  top: 0px;
   z-index: 100;
 
   .pw-close-btn {
@@ -314,16 +355,16 @@ $sidebar-height: 56px;
     $sidebar-width: 280px;
     transition: left 0.4s;
 
-    @include size($sidebar-width, 100%);
+    @include size($sidebar-width, 100vh);
     @include flexbox(column, flex-start);
-
-    padding: 0px;    
-    position: fixed;
+      
+    position: absolute;
+    top: 0px;
+    padding: 0px;
     left: -#{$sidebar-width};
     overflow-x: hidden;
-    overflow-y: auto;
-    
-   
+    overflow-y: auto;   
+
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;

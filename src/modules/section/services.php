@@ -10,7 +10,7 @@ $loop = new \WP_Query([
 
 ?>
 <section class="pw-section-vp pw-section-services">
-<?php module('component/header', ['title' => 'SERVIÇOS', 'icon' => 'fas fa-tools'])?>
+<?php component('header', ['title' => 'SERVIÇOS', 'icon' => 'fas fa-tools'])?>
 <div class="pw-cards-container">  
 <?php while ($loop->have_posts()): ?>
   <?php $loop->the_post(); ?>
@@ -18,7 +18,7 @@ $loop = new \WP_Query([
     <i class="pw-icon <?php esc_attr_e(get_post_meta(get_the_ID(), 'pw-icon', true)) ?>"></i>
     <h3 class='pw-title'><?php esc_attr_e(the_title()); ?></h3>
     <?php echo the_excerpt(); ?>
-    <?php module('component/fancy-button', ['text' => "SAIBA MAIS", 'link' => "#"])?>  
+    <?php component('fancy-button', ['text' => "SAIBA MAIS", 'link' => "#"])?>  
 </article>
 <?php endwhile; ?>
 </section>
@@ -62,6 +62,11 @@ pw.section.services.ellipsisHandler();
     .pw-cards-container{
       @include flexbox(row, space-between, flex-start);  
 
+      @include media($tablet){
+        flex-direction: column;
+        align-items: center;
+      }
+
       .pw-icon-card{
         @include flexbox(column, center, center);
         box-sizing: border-box;
@@ -92,6 +97,22 @@ pw.section.services.ellipsisHandler();
           &.pw-ready{
             visibility: visible;
           }           
+        }
+
+        @include media($tablet){
+          &:not(:first-child){
+            margin-top: 40px;
+          }       
+          width: 540px;
+        }
+
+        @include media($mobile){
+          width: 320px;
+        }
+
+        @include media($small-mobile){
+          width: 260px;
+          padding: 5px;
         }
       }     
     }

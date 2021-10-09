@@ -31,6 +31,7 @@
 
 ?>
 
+<div class="pw-sidebar-navbar-container">
 <div class="pw-sidebar-bar">   
   <button class="pw-hamburger-menu">
     <span class="pw-top"></span>
@@ -40,10 +41,7 @@
 </div>
 
 <nav class="pw-navbar">
-
-<div class="pw-top-sidebar">
-
-  <!-- logo -->  
+<div class="pw-top-sidebar"> 
   <?php if(has_custom_logo()): ?>
       <?php the_custom_logo(); ?>
     <?php elseif(file_exists(get_template_directory().'/assets/images/logo.svg')): ?>
@@ -80,6 +78,7 @@
   
   </div>    
 </nav>
+</div>
 
 <div class="pw-navbar-placeholder"></div>
 <div class="pw-navbar-backdrop"></div>

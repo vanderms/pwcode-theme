@@ -21,8 +21,7 @@ pw.util.setEllipsis = (elem, text)=>{
     elem.textContent = text.substring(0, middle);
     elem.appendChild(span);
     const spanRect = span.getBoundingClientRect();
-    const elemRect = elem.getBoundingClientRect();
-    console.log(middle);
+    const elemRect = elem.getBoundingClientRect();   
 
     const interval = spanRect.height - 5;
     

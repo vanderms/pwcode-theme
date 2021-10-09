@@ -8,5 +8,5 @@
 </head>
 <body <?php body_class(); ?>>
   <?php wp_body_open(); ?>  
-  <?php module('component/navbar'); ?>
+  <?php component('navbar'); ?>
   <main>

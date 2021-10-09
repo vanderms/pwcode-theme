@@ -5,11 +5,9 @@
       flex-direction: row;
       align-items: center;
     }
-
     .pw-icon-metabox{
       margin-left: 20px;
     }
-
   </style>
   <div class="pw-field">
     <label for="">Classe: </label>
