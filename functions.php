@@ -53,18 +53,6 @@ add_action('wp_enqueue_scripts', function(){
 });
 
 
-
-//header image, include style
-add_action('wp_head', function(){
-  if(has_header_image()):
-    echo ("<style>.pw-header-image{background-image:url(". 
-      esc_url(get_header_image()) . 
-      ");}</style>"
-    );
-  endif;
-});
-
-
 //header image, register
 register_default_headers( [
   'default-image' => [
@@ -80,6 +68,8 @@ require_once get_template_directory() . '/inc/navbar/default-menu.php';
 //service custom page
 require_once get_template_directory(). '/inc/services/custom-page.php';
 
+//projects custom post
+require_once get_template_directory() . '/inc/projects/custom-post.php';
 
 
 ?>

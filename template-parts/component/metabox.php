@@ -1,3 +1,4 @@
+<?php namespace pwcode\com\theme; ?>
 <div>
   <style scoped>
     .pw-field{

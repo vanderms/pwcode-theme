@@ -1,39 +1,47 @@
 let through = require('through2');
 
-function getTagContent(tagName, file){ 
+
+function getTagContent(tag, file){ 
   
   if(file.path.length - file.path.indexOf('.php') != 4){
     return file;
   }
   
-  const str = file.contents;
+  const buf = file.contents;
+  const openTag = `<${tag}`;
+  const closeTag = `</${tag}>`; 
+  
   let start = 0;
   let end = 0;
 
-  const startTag = `<${tagName}`;
-  const endTag = `</${tagName}>`;
-
-  start = str.indexOf(startTag);   
-  end = str.indexOf(endTag);
+  if( tag === "template"){
+    start = buf.indexOf(openTag);   
+    end = buf.lastIndexOf(closeTag);    
+  }
+  else {
+    let searchFrom = buf.lastIndexOf('</template>');
+    searchFrom = searchFrom != -1 ? searchFrom : 0;
+    start = buf.indexOf(openTag, searchFrom);
+    end = buf.indexOf(closeTag, start);
+  } 
 
   let out = "";
  
   if(start !== -1 && end != -1) {
-    start = str.indexOf('\n', start + 1) + 1;
-    out = str.slice(start, end);
-    if(tagName === "template"){
+    start = buf.indexOf('\n', start + 1) + 1;
+    out = buf.slice(start, end);
+    if(tag === "template"){
       out = "<?php namespace pwcode\\com\\theme; ?>\n" + out;
     }
   }
-
-  const outBuffer = Buffer.from(out);
-  file.contents = outBuffer;
+   
+  file.contents = Buffer.from(out);
   return file;
 }
 
 
-module.exports = function extract(tagName){
+module.exports = function extract(tag){
   return through.obj(function(file, encoding, callback){
-    callback(null, getTagContent(tagName, file));
+    callback(null, getTagContent(tag, file));
   });
 }

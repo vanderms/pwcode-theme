@@ -50,6 +50,7 @@ pw.util.setEllipsis = (elem, text)=>{
 }
 
 
+
   
   pw.component.navbar = {};
  
@@ -117,7 +118,6 @@ pw.util.setEllipsis = (elem, text)=>{
         }           
       });
     }
-
   }
 
   //pw.component.navbar.wpadminHandler()

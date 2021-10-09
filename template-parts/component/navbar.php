@@ -1,8 +1,7 @@
 <?php namespace pwcode\com\theme; ?>
 <?php
     
-  class MenuWalker extends \Walker_Nav_Menu {
-    
+  class MenuWalker extends \Walker_Nav_Menu {        
     function end_el(&$output, $item, $depth = 0, $args = NULL){
       $has_children = false;
       foreach($item->classes as $class_name):
@@ -14,7 +13,7 @@
     }
   }
 
-  $walker = new MenuWalker();  
+  $walker = new MenuWalker();
 
   $nav_center_args = [
     'theme_location' => 'navbar-center',
@@ -31,7 +30,8 @@
 
 ?>
 
-<div class="pw-sidebar-navbar-container">
+<div class="pw-navbar-container">
+<div class="pw-navbar-backdrop"></div>
 <div class="pw-sidebar-bar">   
   <button class="pw-hamburger-menu">
     <span class="pw-top"></span>
@@ -78,7 +78,7 @@
   
   </div>    
 </nav>
+
 </div>
 
 <div class="pw-navbar-placeholder"></div>
-<div class="pw-navbar-backdrop"></div>
