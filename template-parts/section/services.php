@@ -14,11 +14,13 @@ $loop = new \WP_Query([
 <div class="pw-cards-container">  
 <?php while ($loop->have_posts()): ?>
   <?php $loop->the_post(); ?>
-  <article class="pw-icon-card">
-    <i class="pw-icon <?php esc_attr_e(get_post_meta(get_the_ID(), 'pw-icon', true)) ?>"></i>
-    <h3 class='pw-title'><?php esc_attr_e(the_title()); ?></h3>
-    <?php echo the_excerpt(); ?>
-    <?php component('fancy-button', ['text' => "SAIBA MAIS", 'link' => "#"])?>  
-</article>
+  <?php 
+    component('icon-card', [
+      'title' => the_title('', '', false),
+      'icon' => get_post_meta(get_the_ID(), 'pw-service-icon', true),
+      'excerpt' => apply_filters( 'the_excerpt', get_the_excerpt()),
+      'link' => get_post_permalink()
+    ]);
+  ?>
 <?php endwhile; ?>
 </section>

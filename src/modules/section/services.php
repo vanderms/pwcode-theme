@@ -14,12 +14,14 @@ $loop = new \WP_Query([
 <div class="pw-cards-container">  
 <?php while ($loop->have_posts()): ?>
   <?php $loop->the_post(); ?>
-  <article class="pw-icon-card">
-    <i class="pw-icon <?php esc_attr_e(get_post_meta(get_the_ID(), 'pw-icon', true)) ?>"></i>
-    <h3 class='pw-title'><?php esc_attr_e(the_title()); ?></h3>
-    <?php echo the_excerpt(); ?>
-    <?php component('fancy-button', ['text' => "SAIBA MAIS", 'link' => "#"])?>  
-</article>
+  <?php 
+    component('icon-card', [
+      'title' => the_title('', '', false),
+      'icon' => get_post_meta(get_the_ID(), 'pw-service-icon', true),
+      'excerpt' => apply_filters( 'the_excerpt', get_the_excerpt()),
+      'link' => get_post_permalink()
+    ]);
+  ?>
 <?php endwhile; ?>
 </section>
 </template>
@@ -27,29 +29,7 @@ $loop = new \WP_Query([
 
 <script>
 
-pw.section.services = {};
 
-pw.section.services.ellipsisHandler = ()=>{
-  
-  const paragraphs = document.querySelectorAll('.pw-icon-card p');
-  const items = [];
-
-  paragraphs.forEach(paragraph => {
-    items.push({p : paragraph, text: paragraph.textContent});
-  });
-
-  const setup = ()=>{
-    items.forEach(item => {
-      pw.util.setEllipsis(item.p, item.text);     
-      item.p.classList.add('pw-ready');
-    });
-  }
-  
-  window.addEventListener('load', setup);
-  window.addEventListener('resize', setup);  
-}
-
-pw.section.services.ellipsisHandler();
 
 </script>
 
@@ -65,58 +45,8 @@ pw.section.services.ellipsisHandler();
       @include media($tablet){
         flex-direction: column;
         align-items: center;
-      }
-
-      .pw-icon-card{
-        @include flexbox(column, center, center);
-        box-sizing: border-box;
-        border: 1px solid $primary-dark;       
-        border-radius: 5px;
-        width: 30%;
-        padding: 30px;
-
-        .pw-icon{
-          font-size: 48px;
-          color: $primary-light;
-        }
-
-        .pw-title{
-          font-size: 18px;
-          font-weight: 400;
-          color: $primary-light;
-        }
-
-        p{
-         text-align: center;
-          line-height: 1.6;
-          font-size: 15px;
-          height: 125px;
-          overflow: hidden;  
-          font-weight: 300;
-          visibility: hidden;
-          &.pw-ready{
-            visibility: visible;
-          }           
-        }
-
-        @include media($tablet){
-          &:not(:first-child){
-            margin-top: 40px;
-          }       
-          width: 540px;
-        }
-
-        @include media($mobile){
-          width: 320px;
-        }
-
-        @include media($small-mobile){
-          width: 260px;
-          padding: 5px;
-        }
-      }     
+      }       
     }
-
   }
 
 

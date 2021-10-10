@@ -22,7 +22,7 @@
   
   .pw-component-header {   
     text-align: center;
-    margin-bottom: 80px;
+    margin-bottom: 100px;
     
     h2 {
       margin: 0px;

@@ -1,7 +1,6 @@
 <?php namespace pwcode\com\theme;
 
 
-
 add_action('init', function(){
 
   register_post_type('pw-services', 
@@ -24,22 +23,25 @@ add_action('init', function(){
 add_action('add_meta_boxes', function(){
   
   $callback = function(){
-    component("metabox");
+    component("service-icon-field");
   };
 
-  add_meta_box('my-meta-box', "Font Awesome icone", $callback, 'pw-services', 'side');
+  add_meta_box('pw-service-field', "Font Awesome icone", $callback, 'pw-services', 'side');
 
 });
 
 
-add_action('save_post', function($post_id) {
+add_action('save_post_pw-services', function($post_id) {
   
-  if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ):
+  if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ){
     return;
-  endif;
-     
-  $post_id = wp_is_post_revision($post_id) ?: $post_id;
-  update_post_meta($post_id, "pw-icon", sanitize_text_field($_POST['pw-icon']));
+  }
+
+  if (isset($_POST['pw-service-icon'])){
+    $post_id = wp_is_post_revision($post_id) ?: $post_id;
+    $value = sanitize_text_field($_POST['pw-service-icon']);
+    update_post_meta($post_id, "pw-service-icon", $value);
+  }
 });
 
 ?>

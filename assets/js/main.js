@@ -1,3 +1,4 @@
+"use strict";
 
 const pw = {
   component: {}, 
@@ -49,6 +50,51 @@ pw.util.setEllipsis = (elem, text)=>{
   return false;
 }
 
+pw.component.iconCard = {};
+
+pw.component.iconCard.ellipsisHandler = ()=>{
+  
+  const paragraphs = document.querySelectorAll('.pw-component-icon-card p');
+  const items = [];
+
+  paragraphs.forEach(paragraph => {
+    items.push({p : paragraph, text: paragraph.textContent});
+  });
+
+  const setup = ()=>{
+    items.forEach(item => {
+      pw.util.setEllipsis(item.p, item.text);     
+      item.p.classList.add('pw-ready');
+    });
+  }
+  
+  window.addEventListener('load', setup);
+  window.addEventListener('resize', setup);  
+}
+
+pw.component.iconCard.hoverHandler = ()=>{
+  const cards = document.querySelectorAll('.pw-component-icon-card');
+  
+  const showReadMore = (e) =>{     
+    const card = e.currentTarget;
+    card.classList.add('pw-hover');
+  }
+
+  const hideReadMore = (e) =>{
+    const card = e.currentTarget;
+    card.classList.remove('pw-hover');
+  }
+  
+  cards.forEach(card => {
+    card.addEventListener('mouseenter', showReadMore);
+  })
+
+  
+
+}
+
+pw.component.iconCard.hoverHandler();
+pw.component.iconCard.ellipsisHandler();
 
 
   
@@ -128,27 +174,6 @@ pw.util.setEllipsis = (elem, text)=>{
 
 
 
-pw.section.services = {};
 
-pw.section.services.ellipsisHandler = ()=>{
-  
-  const paragraphs = document.querySelectorAll('.pw-icon-card p');
-  const items = [];
 
-  paragraphs.forEach(paragraph => {
-    items.push({p : paragraph, text: paragraph.textContent});
-  });
-
-  const setup = ()=>{
-    items.forEach(item => {
-      pw.util.setEllipsis(item.p, item.text);     
-      item.p.classList.add('pw-ready');
-    });
-  }
-  
-  window.addEventListener('load', setup);
-  window.addEventListener('resize', setup);  
-}
-
-pw.section.services.ellipsisHandler();
 
