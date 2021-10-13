@@ -1,9 +1,6 @@
 <template>
 <section class="pw-cover">
-  <div class="pw-bg-image">
-    <style scoped>
-      .pw-bg-image{ background-image: url(<?php echo get_header_image();?>); }
-    </style>
+  <div class="pw-bg-image" style='background-image: url(<?php echo get_header_image();?>)'>   
   </div>
   <div class="pw-cover-overlay"></div>
   <header class="pw-header">
@@ -24,10 +21,11 @@
 
 <style lang='scss'>
   @import "src/scss/utilities.scss";
+  $cover-height: calc(100vh - 80px);
 
   
   .pw-cover{
-    min-height: calc(100vh - 80px);   
+    min-height: $cover-height;   
     position: relative;
 
     .pw-bg-image{
@@ -41,7 +39,7 @@
     
     .pw-cover-background{
       z-index: 1;
-      min-height: calc(100vh - 80px);
+      min-height: $cover-height;
       width: 100%;
       position: absolute;
       background-repeat: no-repeat;
@@ -51,11 +49,11 @@
 
     .pw-cover-overlay{
       z-index: 2;
-      min-height: calc(100vh - 80px);
+      min-height: $cover-height;
       width: 100%;
       position: absolute;
       background-color: black;
-      opacity: 0.75;
+      opacity: 0.50;
     }
 
     .pw-header{
@@ -65,7 +63,7 @@
       z-index: 3;
       padding-right: 40%;
       color: white;
-      min-height: calc(100vh - 80px);
+      min-height: $cover-height;
       
       h1{
           margin: 0px;

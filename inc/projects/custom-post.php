@@ -14,8 +14,10 @@ add_action('init', function(){
       'supports' => ['title', 'editor', 'thumbnail'],
       'rewrite' => ['slug' => 'projetos']
     ]
-  );
+  );  
 });
+
+
 
 
 

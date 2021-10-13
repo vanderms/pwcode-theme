@@ -49,6 +49,58 @@ pw.util.setEllipsis = (elem, text)=>{
   elem.textContent = text;
   return false;
 }
+  pw.component.cardProject = {};
+
+  pw.component.cardProject.likes = {};
+
+  pw.component.cardProject.likeHandler = ()=>{
+    const section = document.querySelector('.pw-section-projects');
+    const likes = document.querySelectorAll('.pw-component-card-project .pw-like');
+    const nonce = section.dataset.nonce;
+    const url = section.dataset.url;  
+
+    likes.forEach(like => {
+
+      like.addEventListener('click', ()=> {
+        const id = like.dataset.id;
+        if(pw.component.cardProject.likes[id.toString()]){
+          return;
+        }
+        pw.component.cardProject.likes[id.toString()] = true;
+        const data = new FormData();
+
+        data.append('_ajax_nonce', nonce);
+        data.append('action', 'projects_likes');
+        data.append('id', id);     
+
+        fetch(url, {
+          body: data,
+          method : 'post'
+        })
+        .then(response => response.text())
+        .then(text => console.log(text))
+        .catch(error => console.log(error.message));
+
+        const value = like.parentNode.querySelector('.pw-like-value');
+
+        value.textContent = parseInt(value.textContent) + 1;
+        like.classList.remove('far');
+        like.classList.add('fas');
+
+      });
+        
+       
+
+
+    });
+
+
+
+  }
+
+  pw.component.cardProject.likeHandler();
+
+
 
 pw.component.iconCard = {};
 

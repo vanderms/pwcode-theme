@@ -66,7 +66,7 @@ pw.component.iconCard.ellipsisHandler();
 @import "src/scss/utilities.scss";
 
 .pw-component-icon-card-link{
-  @include no-decoration-link;
+  @include link-no-decoration;
   width: 30%;
 
   @include media($tablet){
@@ -126,11 +126,10 @@ pw.component.iconCard.ellipsisHandler();
       display: inline-block;
     }    
     .pw-text{
-      max-width: 0px;
-      height: 20px;
-      overflow: hidden;
-      
+      margin-right: 12px;   
+      font-size: 14px;   
     }
+    
     .pw-line{
       width: 40px;      
       border-top: 1px solid $primary-light;
@@ -139,26 +138,8 @@ pw.component.iconCard.ellipsisHandler();
 
   &:hover{
     border: 1px solid $primary-dark;   
-    .pw-read-more{
-      .pw-text{      
-        transition: max-width 1s;
-        margin-right: 12px;         
-        max-width: 340px;
-        font-size: 14px;        
-      }
-    }
-
   }
-
-  @include media($tablet){
-    .pw-read-more{
-      .pw-text{
-        margin-right: 12px;         
-        max-width: 340px;
-        font-size: 14px; 
-      }
-    }
-  } 
+   
 }
 
 </style>

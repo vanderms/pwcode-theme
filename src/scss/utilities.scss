@@ -1,7 +1,7 @@
 //colors
 $primary: #008064;
 $primary-light: #00BB94;
-$primary-dark: #004032;
+$primary-dark: #005946;
 $bg-light-blog: #E5E3E1;
 
 
@@ -132,7 +132,7 @@ $rounded: 1000px;
   }
 }
 
-@mixin no-decoration-link{
+@mixin link-no-decoration{
   text-decoration: none;
   color: inherit;
 }

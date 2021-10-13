@@ -9,6 +9,8 @@ add_action('after_setup_theme', function(){
 	add_theme_support('title-tag');
   add_theme_support('post-thumbnails');
 
+  add_image_size('pw-project-thumbnail', 960, 690, true);
+
   //custom header
   $custom_header_options = ['width' => 1920, 'height' => 1080];
   $default_image = '/assets/images/1920/cover.jpg';
@@ -71,5 +73,51 @@ require_once get_template_directory(). '/inc/services/custom-page.php';
 //projects custom post
 require_once get_template_directory() . '/inc/projects/custom-post.php';
 
+
+add_action('init', function(){
+  $args = [
+    'labels' => [
+      'name' => 'Tipos',
+      'singular_name' => 'Tipo'
+    ],
+    'public' => true,
+    'hierarchical' => true
+  ];
+
+  register_taxonomy('pw-projects-type', 'pw-projects', $args);
+
+  wp_insert_term("Wordpress", "pw-projects-type");
+  wp_insert_term('Landing Page', 'pw-projects-type');
+  wp_insert_term('Aplicativo Web', 'pw-projects-type');
+  wp_insert_term('Lojas Online', 'pw-projects-type');
+
+});
+
+
+class HttpRequestUtil {
+ 
+  private static $projects_nonce;
+
+  public static function init(){
+    if(!HttpRequestUtil::$projects_nonce){
+      HttpRequestUtil::$projects_nonce = wp_create_nonce();
+    }
+  }
+
+  public static function projects_nonce(){
+    return HttpRequestUtil::$projects_nonce;
+  }
+
+  public static function url(){
+    return admin_url('admin-ajax.php');
+  }
+}
+
+add_action("init", function(){ HttpRequestUtil::init();});
+
+add_action('wp_ajax_nopriv_projects_likes', function(){
+  echo $_POST['id'];
+  wp_die();
+});
 
 ?>

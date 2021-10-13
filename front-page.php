@@ -3,6 +3,6 @@
 
 <?php section('cover'); ?>
 <?php section('services'); ?>
-<?php section('projects') ?>
+<?php section('portfolio') ?>
 
 <?php get_footer(); ?>

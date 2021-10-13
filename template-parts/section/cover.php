@@ -1,9 +1,6 @@
 <?php namespace pwcode\com\theme; ?>
 <section class="pw-cover">
-  <div class="pw-bg-image">
-    <style scoped>
-      .pw-bg-image{ background-image: url(<?php echo get_header_image();?>); }
-    </style>
+  <div class="pw-bg-image" style='background-image: url(<?php echo get_header_image();?>)'>   
   </div>
   <div class="pw-cover-overlay"></div>
   <header class="pw-header">
