@@ -23,6 +23,10 @@
   .pw-component-header {   
     text-align: center;
     margin-bottom: 100px;
+
+    @include media($mobile){
+      margin-bottom: 60px;
+    }
     
     h2 {
       margin: 0px;

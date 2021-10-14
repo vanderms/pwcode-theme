@@ -20,8 +20,10 @@
       <h4 class='pw-title'><?php echo $args['title']; ?></h4>  
     </div>
     <div class="pw-info-interaction">
-      <i class="fas fa-eye"></i>
-        <span class='pw-views-value'><?php echo $args['views'] ?></span>
+      <a class='pw-eye-link' href="<?php echo $args['link']?>">
+        <i class="fas fa-eye"></i>
+      </a>      
+      <span class='pw-views-value'><?php echo $args['views'] ?></span>
       <i 
         class="pw-like far fa-heart"       
         data-id = "<?php echo $args['id']?>" 

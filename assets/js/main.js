@@ -115,6 +115,10 @@ pw.component.cardProject = {
     const image = card.querySelector('.pw-image');
     image.src = project.thumbnail;
 
+    //set thumbnail link
+    const imageLink = card.querySelector('.pw-component-card-project-link');
+    imageLink.href = project['link'];
+
     //set type icons
     const icons = {
       "Wordpress" : 'fab fa-wordpress',
@@ -137,6 +141,10 @@ pw.component.cardProject = {
     title.className = "pw-title";
     title.textContent = project['title'];
     pwInfoId.appendChild(title);
+
+    //set view link
+    const viewsLink = card.querySelector(".pw-eye-link");
+    viewsLink.href = project['link'];
 
     //set views
     const views = card.querySelector('.pw-views-value');
@@ -285,12 +293,12 @@ pw.component.iconCard.ellipsisHandler();
 
 
 
-
 pw.section.portfolio = {
 
   current: "all",
 
   filterHandler: ()=>{
+
     const section = document.querySelector('.pw-section-projects');
     const projects = JSON.parse(section.dataset.projects);
     
@@ -300,7 +308,7 @@ pw.section.portfolio = {
         "Aplicativo Web" : ".pw-apps",
         "Landing Page" : ".pw-landing",
         "Loja Online" : ".pw-stores"
-      }; 
+    }; 
    
     const update = (filter)=>{   
 
@@ -326,22 +334,14 @@ pw.section.portfolio = {
       }
     }
     
-    section.querySelector('.pw-all')
-      .addEventListener('click', ()=> update('all'));
-    
-    section.querySelector('.pw-wordpress')
-      .addEventListener('click', ()=> update('Wordpress'));
+    for(let item in classes){
+      section.querySelector(classes[item])
+        .addEventListener('click', ()=> update(item));
+    }
 
-    section.querySelector('.pw-apps')
-      .addEventListener('click', ()=> update('Aplicativo Web'));
-
-    section.querySelector('.pw-landing')
-      .addEventListener('click', ()=> update('Landing Page'));
-
-    section.querySelector('.pw-stores')
-      .addEventListener('click', ()=> update('Loja Online'));
+    const select = section.querySelector("#pw-select-filter");
+    select.addEventListener('change', (e)=> update(e.currentTarget.value));
   }
-
 };
 
 

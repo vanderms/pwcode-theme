@@ -20,8 +20,10 @@
       <h4 class='pw-title'><?php echo $args['title']; ?></h4>  
     </div>
     <div class="pw-info-interaction">
-      <i class="fas fa-eye"></i>
-        <span class='pw-views-value'><?php echo $args['views'] ?></span>
+      <a class='pw-eye-link' href="<?php echo $args['link']?>">
+        <i class="fas fa-eye"></i>
+      </a>      
+      <span class='pw-views-value'><?php echo $args['views'] ?></span>
       <i 
         class="pw-like far fa-heart"       
         data-id = "<?php echo $args['id']?>" 
@@ -99,6 +101,10 @@ pw.component.cardProject = {
     const image = card.querySelector('.pw-image');
     image.src = project.thumbnail;
 
+    //set thumbnail link
+    const imageLink = card.querySelector('.pw-component-card-project-link');
+    imageLink.href = project['link'];
+
     //set type icons
     const icons = {
       "Wordpress" : 'fab fa-wordpress',
@@ -121,6 +127,10 @@ pw.component.cardProject = {
     title.className = "pw-title";
     title.textContent = project['title'];
     pwInfoId.appendChild(title);
+
+    //set view link
+    const viewsLink = card.querySelector(".pw-eye-link");
+    viewsLink.href = project['link'];
 
     //set views
     const views = card.querySelector('.pw-views-value');
@@ -200,6 +210,12 @@ pw.component.cardProject = {
     .pw-info-interaction{
       @include flexbox('row, flex-end, center');
 
+      .pw-eye-link{
+        @include link-no-decoration;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+      }
       
       span{
         font-size: 12px;
@@ -208,13 +224,13 @@ pw.component.cardProject = {
       }
       i{
         font-size: 13px;
+        cursor: pointer;
+
         &:not(:first-child){
           margin-left: 8px;
         }
       }
-
-    }
-   
+    }   
   }  
 }
 </style>

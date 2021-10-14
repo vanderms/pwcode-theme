@@ -43,13 +43,23 @@
   data-action = "<?php echo HttpRequestUtil::projects_action(); ?>"
 >
   <?php component('header', ['title' => 'PORTFÓLIO', 'icon' => 'fas fa-book-open'])?>
-  <div class="pw-filter">
-    <button class='pw-current pw-all'>TODOS</button>
-    <button class='pw-wordpress'>WORDPRESS</button>
-    <button class='pw-stores'>LOJAS ONLINE</button>
-    <button class='pw-landing'>LANDING PAGE</button>
-    <button class='pw-apps'>APLICATIVOS</button>
-  </div>
+  <div class="pw-select-container">
+    <label for="pw-select-filter">FILTRO: </label>
+    <select id="pw-select-filter">
+      <option value="all">TODOS</option>
+      <option value="Wordpress">WORDPRESS</option>
+      <option value="Aplicativo Web">APLICATIVOS</option>
+      <option value="Landing Page">LANDING PAGE</option>
+      <option value="Loja Online">LOJA ONLINE</option>
+    </select>  
+  </div>  
+  <ul class="pw-filter">
+    <li><button class='pw-current pw-all'>TODOS</button></li>
+    <li><button class='pw-wordpress'>WORDPRESS</button></li>
+    <li><button class='pw-stores'>LOJAS ONLINE</button></li>
+    <li><button class='pw-landing'>LANDING PAGE</button></li>
+    <li><button class='pw-apps'>APLICATIVOS</button></li>
+  </ul>
   <div class="pw-cards-container">
     <?php for ($i = 0; $i < count($projects) && $i < 6; $i++): ?>      
        <?php component('card-project', $projects[$i]); ?>

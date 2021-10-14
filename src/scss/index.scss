@@ -66,5 +66,10 @@ body{
 
 .pw-section-vp{
   padding-top: 140px;
+
+  @include media($mobile){
+    padding-top: 80px;
+  }
+
 }
 

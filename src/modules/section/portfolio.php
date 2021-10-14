@@ -43,13 +43,23 @@
   data-action = "<?php echo HttpRequestUtil::projects_action(); ?>"
 >
   <?php component('header', ['title' => 'PORTFÓLIO', 'icon' => 'fas fa-book-open'])?>
-  <div class="pw-filter">
-    <button class='pw-current pw-all'>TODOS</button>
-    <button class='pw-wordpress'>WORDPRESS</button>
-    <button class='pw-stores'>LOJAS ONLINE</button>
-    <button class='pw-landing'>LANDING PAGE</button>
-    <button class='pw-apps'>APLICATIVOS</button>
-  </div>
+  <div class="pw-select-container">
+    <label for="pw-select-filter">FILTRO: </label>
+    <select id="pw-select-filter">
+      <option value="all">TODOS</option>
+      <option value="Wordpress">WORDPRESS</option>
+      <option value="Aplicativo Web">APLICATIVOS</option>
+      <option value="Landing Page">LANDING PAGE</option>
+      <option value="Loja Online">LOJA ONLINE</option>
+    </select>  
+  </div>  
+  <ul class="pw-filter">
+    <li><button class='pw-current pw-all'>TODOS</button></li>
+    <li><button class='pw-wordpress'>WORDPRESS</button></li>
+    <li><button class='pw-stores'>LOJAS ONLINE</button></li>
+    <li><button class='pw-landing'>LANDING PAGE</button></li>
+    <li><button class='pw-apps'>APLICATIVOS</button></li>
+  </ul>
   <div class="pw-cards-container">
     <?php for ($i = 0; $i < count($projects) && $i < 6; $i++): ?>      
        <?php component('card-project', $projects[$i]); ?>
@@ -59,12 +69,12 @@
 </template>
 
 <script>
-
 pw.section.portfolio = {
 
   current: "all",
 
   filterHandler: ()=>{
+
     const section = document.querySelector('.pw-section-projects');
     const projects = JSON.parse(section.dataset.projects);
     
@@ -74,7 +84,7 @@ pw.section.portfolio = {
         "Aplicativo Web" : ".pw-apps",
         "Landing Page" : ".pw-landing",
         "Loja Online" : ".pw-stores"
-      }; 
+    }; 
    
     const update = (filter)=>{   
 
@@ -100,22 +110,14 @@ pw.section.portfolio = {
       }
     }
     
-    section.querySelector('.pw-all')
-      .addEventListener('click', ()=> update('all'));
-    
-    section.querySelector('.pw-wordpress')
-      .addEventListener('click', ()=> update('Wordpress'));
+    for(let item in classes){
+      section.querySelector(classes[item])
+        .addEventListener('click', ()=> update(item));
+    }
 
-    section.querySelector('.pw-apps')
-      .addEventListener('click', ()=> update('Aplicativo Web'));
-
-    section.querySelector('.pw-landing')
-      .addEventListener('click', ()=> update('Landing Page'));
-
-    section.querySelector('.pw-stores')
-      .addEventListener('click', ()=> update('Loja Online'));
+    const select = section.querySelector("#pw-select-filter");
+    select.addEventListener('change', (e)=> update(e.currentTarget.value));
   }
-
 };
 
 
@@ -131,14 +133,53 @@ pw.section.portfolio.filterHandler();
 .pw-section-projects{
   @include container;
 
+  .pw-select-container{
+    display: none;
+    @include media($mobile){
+      @include flexbox(row, flex-end, center);
+      margin-bottom: 20px;
+      padding-right: calc(50% - 155px);
+
+      label{
+
+        font-size: 15px;
+        font-weight: 300;
+        margin-right: 20px;
+      }
+
+      select{
+        box-sizing: border-box;
+        padding: 4px 6px;
+        border-radius: 5px;
+        color: $primary-light;
+        font-family: 'Nunito Sans';
+        background-color: inherit;
+        
+      }
+    } 
+    @include media($small-mobile){
+      padding-right: 5px;
+    } 
+  }
+
+
   .pw-filter{
     display: grid;
     justify-content: center;
     grid-auto-flow: column;
     gap: 30px;
-    margin-top: -20px;
-    margin-bottom: 60px;
+    margin: -20px 0px 60px 0px;
+    padding-left: 0px;    
+    list-style-type: none; 
     
+
+    @include media($tablet){
+      gap: 20px;
+    }
+
+    @include media($mobile){
+      display: none;  
+    }
 
     button{
       color: inherit;
@@ -148,7 +189,12 @@ pw.section.portfolio.filterHandler();
       font-size: 15px;
       font-weight: 300;
       font-family: inherit;
+     
+      @include media($tablet){
+        font-size: 14px;
+      }
 
+     
       &.pw-current{
         color: $primary-light;
       }
