@@ -27,7 +27,7 @@ add_action('add_meta_boxes', function(){
   };
 
   add_meta_box('pw-service-field', "Font Awesome icone", $callback, 'pw-services', 'side');
-
+  
 });
 
 

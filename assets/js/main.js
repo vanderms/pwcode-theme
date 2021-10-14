@@ -49,29 +49,41 @@ pw.util.setEllipsis = (elem, text)=>{
   elem.textContent = text;
   return false;
 }
-  pw.component.cardProject = {};
 
-  pw.component.cardProject.likes = {};
+pw.component.cardProject = {
 
-  pw.component.cardProject.likeHandler = ()=>{
+  getLocalStorageKey: id => "like: " + id,
+
+  likeHandler: ()=>{
     const section = document.querySelector('.pw-section-projects');
-    const likes = document.querySelectorAll('.pw-component-card-project .pw-like');
+    const all = document.querySelectorAll('.pw-component-card-project .pw-like');
     const nonce = section.dataset.nonce;
-    const url = section.dataset.url;  
+    const url = section.dataset.url;
+    const action = section.dataset.action;
+    const likes = [];  
+    const key = pw.component.cardProject.getLocalStorageKey;
+
+    for(let i = 0; i < all.length; i++){
+      const like = all[i];
+      if(localStorage.getItem(key(like.dataset.id))){
+        like.classList.remove("far");
+        like.classList.add("fas");
+      }
+      else{
+        likes.push(like);
+      }      
+    }
 
     likes.forEach(like => {
 
       like.addEventListener('click', ()=> {
-        const id = like.dataset.id;
-        if(pw.component.cardProject.likes[id.toString()]){
-          return;
-        }
-        pw.component.cardProject.likes[id.toString()] = true;
+        const id = like.dataset.id;           
+        localStorage.setItem(key(id), true);
         const data = new FormData();
 
         data.append('_ajax_nonce', nonce);
-        data.append('action', 'projects_likes');
-        data.append('id', id);     
+        data.append('action', action);
+        data.append('id', id);
 
         fetch(url, {
           body: data,
@@ -88,15 +100,64 @@ pw.util.setEllipsis = (elem, text)=>{
         like.classList.add('fas');
 
       });
-        
-       
-
-
     });
+  },
+  updateHandler: (card, project)=>{
+    
+    //if project is null set visibility to hidden and return
+    if(project === null){
+      card.classList.add('hidden');
+      return;
+    }
+    card.classList.remove('hidden');
 
+    //set thumbnail
+    const image = card.querySelector('.pw-image');
+    image.src = project.thumbnail;
 
+    //set type icons
+    const icons = {
+      "Wordpress" : 'fab fa-wordpress',
+      'Landing Page' : 'fas fa-laptop-code',
+      'Aplicativo Web' : 'fab fa-react',
+      'Loja Online' : 'fas fa-store',
+    };
 
+    const pwInfoId = card.querySelector('.pw-info-id');
+    pwInfoId.innerHTML = '';
+    project.type.sort().reverse();
+    for(let type of project.type){
+      const icon = document.createElement('i');
+      icon.className = icons[type];
+      pwInfoId.appendChild(icon);
+    }
+
+    //set title
+    const title = document.createElement('h4');
+    title.className = "pw-title";
+    title.textContent = project['title'];
+    pwInfoId.appendChild(title);
+
+    //set views
+    const views = card.querySelector('.pw-views-value');
+    views.textContent = project['views'];
+
+    //set like icon
+    const key = pw.component.cardProject.getLocalStorageKey;
+    const like = card.querySelector('.pw-like');
+    like.dataset.id = project['id'];
+
+    if(localStorage.getItem(key(like.dataset.id))){
+        like.classList.remove("far");
+        like.classList.add("fas");
+    }
+
+    //set like value
+    const likeValue = card.querySelector('.pw-like-value');
+    likeValue.textContent = project.likes;
   }
+};
+  
 
   pw.component.cardProject.likeHandler();
 
@@ -224,6 +285,67 @@ pw.component.iconCard.ellipsisHandler();
 
 
 
+
+pw.section.portfolio = {
+
+  current: "all",
+
+  filterHandler: ()=>{
+    const section = document.querySelector('.pw-section-projects');
+    const projects = JSON.parse(section.dataset.projects);
+    
+    const classes = {
+        "all" : ".pw-all",
+        "Wordpress" : '.pw-wordpress',
+        "Aplicativo Web" : ".pw-apps",
+        "Landing Page" : ".pw-landing",
+        "Loja Online" : ".pw-stores"
+      }; 
+   
+    const update = (filter)=>{   
+
+      if(pw.section.portfolio.current === filter){
+        return;
+      }      
+
+      const toRemove = document.querySelector(classes[pw.section.portfolio.current]);
+      toRemove.classList.remove('pw-current');
+      const toAdd = document.querySelector(classes[filter]);
+      toAdd.classList.add('pw-current');
+      pw.section.portfolio.current = filter;
+
+      let filtered = filter === 'all' ? projects : projects.filter((project) =>{       
+        return project.type.indexOf(filter) != -1;
+      });
+
+      const cards = document.querySelectorAll('.pw-component-card-project');
+
+      for(let i = 0; i < cards.length; i++){
+        const project = i < filtered.length ? filtered[i] : null;
+        pw.component.cardProject.updateHandler(cards[i], project);
+      }
+    }
+    
+    section.querySelector('.pw-all')
+      .addEventListener('click', ()=> update('all'));
+    
+    section.querySelector('.pw-wordpress')
+      .addEventListener('click', ()=> update('Wordpress'));
+
+    section.querySelector('.pw-apps')
+      .addEventListener('click', ()=> update('Aplicativo Web'));
+
+    section.querySelector('.pw-landing')
+      .addEventListener('click', ()=> update('Landing Page'));
+
+    section.querySelector('.pw-stores')
+      .addEventListener('click', ()=> update('Loja Online'));
+  }
+
+};
+
+
+pw.section.portfolio.filterHandler();
 
 
 

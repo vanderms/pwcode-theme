@@ -1,5 +1,5 @@
 <?php namespace pwcode\com\theme; ?>
-<?php 
+<?php
 
   $json_loop = new \WP_Query([
     'post_type' => 'pw-projects',
@@ -35,20 +35,22 @@
 
   $projects_json = json_encode($projects);
   wp_reset_postdata(); 
-  
-  
-
 ?>
-
-
 <section class="pw-section-projects pw-section-vp"
-  data-projects = "<?php echo $projects_json; ?>"
+  data-projects = '<?php echo $projects_json; ?>'
   data-url = "<?php echo HttpRequestUtil::url()?>"
   data-nonce = "<?php echo HttpRequestUtil::projects_nonce(); ?>" 
+  data-action = "<?php echo HttpRequestUtil::projects_action(); ?>"
 >
   <?php component('header', ['title' => 'PORTFÓLIO', 'icon' => 'fas fa-book-open'])?>
+  <div class="pw-filter">
+    <button class='pw-current pw-all'>TODOS</button>
+    <button class='pw-wordpress'>WORDPRESS</button>
+    <button class='pw-stores'>LOJAS ONLINE</button>
+    <button class='pw-landing'>LANDING PAGE</button>
+    <button class='pw-apps'>APLICATIVOS</button>
+  </div>
   <div class="pw-cards-container">
-
     <?php for ($i = 0; $i < count($projects) && $i < 6; $i++): ?>      
        <?php component('card-project', $projects[$i]); ?>
     <?php endfor; ?>

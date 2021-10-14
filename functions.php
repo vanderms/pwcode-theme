@@ -89,7 +89,7 @@ add_action('init', function(){
   wp_insert_term("Wordpress", "pw-projects-type");
   wp_insert_term('Landing Page', 'pw-projects-type');
   wp_insert_term('Aplicativo Web', 'pw-projects-type');
-  wp_insert_term('Lojas Online', 'pw-projects-type');
+  wp_insert_term('Loja Online', 'pw-projects-type');
 
 });
 
@@ -100,8 +100,12 @@ class HttpRequestUtil {
 
   public static function init(){
     if(!HttpRequestUtil::$projects_nonce){
-      HttpRequestUtil::$projects_nonce = wp_create_nonce();
+      HttpRequestUtil::$projects_nonce = wp_create_nonce(HttpRequestUtil::projects_action());
     }
+  }
+
+  public static function projects_action(){
+    return "projects_likes";
   }
 
   public static function projects_nonce(){
@@ -113,10 +117,19 @@ class HttpRequestUtil {
   }
 }
 
+
 add_action("init", function(){ HttpRequestUtil::init();});
 
-add_action('wp_ajax_nopriv_projects_likes', function(){
-  echo $_POST['id'];
+add_action('wp_ajax_nopriv_' . HttpRequestUtil::projects_action(), function(){
+    
+  check_ajax_referer(HttpRequestUtil::projects_action());
+    
+    if(!empty($_POST['id']) && get_post_type($_POST['id']) === 'pw-projects'):
+      $current = get_post_meta($_POST['id'], 'pw-project-likes', true) ?: 0;
+      update_post_meta($_POST['id'], 'pw-project-likes', $current + 1);
+      echo $current + 1;    
+    endif;   
+
   wp_die();
 });
 

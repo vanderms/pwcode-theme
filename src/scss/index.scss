@@ -12,6 +12,9 @@ body{
   display: none;
 }
 
+.not-visible{
+  visibility: hidden;
+}
 
 .opacity-hidden {
   opacity: 0;  
@@ -62,6 +65,6 @@ body{
 }
 
 .pw-section-vp{
-  padding-top: 100px;
-  padding-bottom: 60px;
+  padding-top: 140px;
 }
+
