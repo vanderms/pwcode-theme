@@ -13,51 +13,54 @@
 </template>
 
 <script>
-pw.component.iconCard = {};
 
-pw.component.iconCard.ellipsisHandler = ()=>{
+pw.IconCard = class {
+
+  constructor(){
+    pw.IconCard.hoverHandler();
+    pw.IconCard.ellipsisHandler();
+  }
+
+  static ellipsisHandler(){
   
-  const paragraphs = document.querySelectorAll('.pw-component-icon-card p');
-  const items = [];
+    const paragraphs = document.querySelectorAll('.pw-component-icon-card p');
+    const items = [];
 
-  paragraphs.forEach(paragraph => {
-    items.push({p : paragraph, text: paragraph.textContent});
-  });
-
-  const setup = ()=>{
-    items.forEach(item => {
-      pw.util.setEllipsis(item.p, item.text);     
-      item.p.classList.add('pw-ready');
+    paragraphs.forEach(paragraph => {
+      items.push({p : paragraph, text: paragraph.textContent});
     });
+
+    const setup = ()=>{
+      items.forEach(item => {
+        
+        pw.Util.setEllipis(item.p, item.text);     
+        item.p.classList.add('pw-ready');
+      });
+    }
+    
+    window.addEventListener('load', setup);
+    window.addEventListener('resize', setup);  
   }
+
   
-  window.addEventListener('load', setup);
-  window.addEventListener('resize', setup);  
+  static hoverHandler = ()=>{
+    const cards = document.querySelectorAll('.pw-component-icon-card');
+    
+    const showReadMore = (e) =>{     
+      const card = e.currentTarget;
+      card.classList.add('pw-hover');
+    }
+
+    const hideReadMore = (e) =>{
+      const card = e.currentTarget;
+      card.classList.remove('pw-hover');
+    }
+    
+    cards.forEach(card => {
+      card.addEventListener('mouseenter', showReadMore);
+    })
+  }
 }
-
-pw.component.iconCard.hoverHandler = ()=>{
-  const cards = document.querySelectorAll('.pw-component-icon-card');
-  
-  const showReadMore = (e) =>{     
-    const card = e.currentTarget;
-    card.classList.add('pw-hover');
-  }
-
-  const hideReadMore = (e) =>{
-    const card = e.currentTarget;
-    card.classList.remove('pw-hover');
-  }
-  
-  cards.forEach(card => {
-    card.addEventListener('mouseenter', showReadMore);
-  })
-
-  
-
-}
-
-pw.component.iconCard.hoverHandler();
-pw.component.iconCard.ellipsisHandler();
 
 </script>
 

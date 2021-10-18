@@ -69,15 +69,19 @@
 </template>
 
 <script>
-pw.section.portfolio = {
 
-  current: "all",
+pw.Portfolio = class {
+  
+  constructor(){
+    pw.Portfolio.current = "all";
+    pw.Portfolio.filterHandler();
+  }
 
-  filterHandler: ()=>{
+  static filterHandler(){
 
     const section = document.querySelector('.pw-section-projects');
     const projects = JSON.parse(section.dataset.projects);
-    
+
     const classes = {
         "all" : ".pw-all",
         "Wordpress" : '.pw-wordpress',
@@ -85,18 +89,18 @@ pw.section.portfolio = {
         "Landing Page" : ".pw-landing",
         "Loja Online" : ".pw-stores"
     }; 
-   
-    const update = (filter)=>{   
 
-      if(pw.section.portfolio.current === filter){
+    const update = (filter)=>{         
+
+      if(this.current === filter){
         return;
       }      
 
-      const toRemove = document.querySelector(classes[pw.section.portfolio.current]);
+      const toRemove = document.querySelector(classes[this.current]);
       toRemove.classList.remove('pw-current');
       const toAdd = document.querySelector(classes[filter]);
       toAdd.classList.add('pw-current');
-      pw.section.portfolio.current = filter;
+      this.current = filter;
 
       let filtered = filter === 'all' ? projects : projects.filter((project) =>{       
         return project.type.indexOf(filter) != -1;
@@ -106,10 +110,10 @@ pw.section.portfolio = {
 
       for(let i = 0; i < cards.length; i++){
         const project = i < filtered.length ? filtered[i] : null;
-        pw.component.cardProject.updateHandler(cards[i], project);
+        pw.CardProject.updateHandler(cards[i], project);
       }
     }
-    
+
     for(let item in classes){
       section.querySelector(classes[item])
         .addEventListener('click', ()=> update(item));
@@ -118,11 +122,7 @@ pw.section.portfolio = {
     const select = section.querySelector("#pw-select-filter");
     select.addEventListener('change', (e)=> update(e.currentTarget.value));
   }
-};
-
-
-pw.section.portfolio.filterHandler();
-
+}
 </script>
 
 <style lang='scss'>

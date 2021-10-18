@@ -85,13 +85,18 @@
 </template>
 
 <script>
+
+pw.Navbar = class {
   
-  pw.component.navbar = {};
- 
-  pw.component.navbar.dropdownHandler = () =>{
+  constructor(){
+    pw.Navbar.dropdownHandler();
+    pw.Navbar.sidebarHandler();
+  }
+
+  static dropdownHandler = () =>{
 
     const parents = document.querySelectorAll('.menu-item-has-children');
-    
+
     parents.forEach(parent =>{
       const arrow = parent.querySelector('.pw-dynamic-arrow');
       const submenu = parent.querySelector('.sub-menu');
@@ -102,16 +107,15 @@
           span.classList.toggle('pw-open');
         })
       });
-    })
-
+    });
   }
-
-  pw.component.navbar.sidebarHandler = ()=>{
+  
+  static sidebarHandler = ()=>{
 
     const sidebar = document.querySelector('.pw-navbar');
 
     const backdrop = document.querySelector('.pw-navbar-backdrop');
-    
+
     const menuBtn = document.querySelector('.pw-sidebar-bar .pw-hamburger-menu');
 
     const closeBtn = document.querySelector('.pw-navbar .pw-close-btn');
@@ -129,34 +133,9 @@
     menuBtn.addEventListener('click', open);    
     closeBtn.addEventListener('click', close);
     backdrop.addEventListener('click', close);
-
   }
-
-  pw.component.navbar.wpadminHandler = ()=>{
-    const wpadmin = document.querySelector("#wpadminbar");
-    if(wpadmin){
-      let running = false;
-      document.addEventListener("scroll", ()=>{
-        if(!running){
-          running = true;
-          window.requestAnimationFrame(()=>{
-            let pos = wpadmin.getBoundingClientRect().bottom;
-            pos = pos >= 0 ? `${Math.round(pos)}px` : "0px";
-            const sidebar = document.querySelector('.pw-sidebar-bar');
-            const navbar = document.querySelector('.pw-navbar');
-            sidebar.style.top = pos;
-            navbar.style.top = pos;
-            running = false;
-            console.log(pos);
-          });
-        }           
-      });
-    }
-  }
-
-  //pw.component.navbar.wpadminHandler()
-  pw.component.navbar.dropdownHandler();
-  pw.component.navbar.sidebarHandler();
+}
+  
 </script>
 
 

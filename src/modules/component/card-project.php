@@ -8,8 +8,11 @@
   ];
 ?>
 <article class="pw-component-card-project">
-  <a class='pw-component-card-project-link' href="<?php echo $args['link']?>">
-    <img class='pw-image' src="<?php echo $args['thumbnail']?>" alt="">
+  <a class='pw-component-card-project-link' href="<?php echo $args['link']?>"> 
+    <div class="pw-image-container">
+      <i class="fas fa-camera"></i>
+      <img class='pw-image' src="<?php echo $args['thumbnail']?>" alt="">
+    </div>   
   </a>
   <div class="pw-info">
     <div class="pw-info-id">
@@ -36,22 +39,28 @@
 
 <script>
 
-pw.component.cardProject = {
+pw.CardProject = class {
 
-  getLocalStorageKey: id => "like: " + id,
+  constructor(){
+    pw.CardProject.likeHandler();
+  }
+  
+  static key(id){
+    return "like: " + id;
+  }
 
-  likeHandler: ()=>{
+  static likeHandler(){
     const section = document.querySelector('.pw-section-projects');
     const all = document.querySelectorAll('.pw-component-card-project .pw-like');
     const nonce = section.dataset.nonce;
     const url = section.dataset.url;
     const action = section.dataset.action;
     const likes = [];  
-    const key = pw.component.cardProject.getLocalStorageKey;
+    
 
     for(let i = 0; i < all.length; i++){
       const like = all[i];
-      if(localStorage.getItem(key(like.dataset.id))){
+      if(localStorage.getItem(this.key(like.dataset.id))){
         like.classList.remove("far");
         like.classList.add("fas");
       }
@@ -64,7 +73,7 @@ pw.component.cardProject = {
 
       like.addEventListener('click', ()=> {
         const id = like.dataset.id;           
-        localStorage.setItem(key(id), true);
+        localStorage.setItem(this.key(id), true);
         const data = new FormData();
 
         data.append('_ajax_nonce', nonce);
@@ -87,8 +96,9 @@ pw.component.cardProject = {
 
       });
     });
-  },
-  updateHandler: (card, project)=>{
+  }
+
+  static updateHandler(card, project){
     
     //if project is null set visibility to hidden and return
     if(project === null){
@@ -137,11 +147,11 @@ pw.component.cardProject = {
     views.textContent = project['views'];
 
     //set like icon
-    const key = pw.component.cardProject.getLocalStorageKey;
+   
     const like = card.querySelector('.pw-like');
     like.dataset.id = project['id'];
 
-    if(localStorage.getItem(key(like.dataset.id))){
+    if(localStorage.getItem(this.key(like.dataset.id))){
         like.classList.remove("far");
         like.classList.add("fas");
     }
@@ -150,10 +160,7 @@ pw.component.cardProject = {
     const likeValue = card.querySelector('.pw-like-value');
     likeValue.textContent = project.likes;
   }
-};
-  
-
-  pw.component.cardProject.likeHandler();
+}
 
 </script>
 
@@ -174,12 +181,34 @@ pw.component.cardProject = {
   }
 
   border-radius: 5px;
-
-  .pw-image {    
+  
+  .pw-image-container{
+    position: relative;    
     width: 100%;
-    height: auto;   
-    border-radius: 5px; 
+    padding-bottom: 71.6%;
+
+
+    i {
+      font-size: 60px;
+      color: #222;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 1;
+      transform: translate(-50%, -50%);
+    }
+
+    .pw-image {    
+      position: absolute;
+      object-fit: cover;
+      object-position: center;      
+      width: 100%;
+      height: 100%;   
+      border-radius: 5px;
+      z-index: 2; 
+    }
   }
+  
 
   .pw-info {
     @include flexbox(row, space-between, center);

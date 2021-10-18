@@ -8,8 +8,11 @@
   ];
 ?>
 <article class="pw-component-card-project">
-  <a class='pw-component-card-project-link' href="<?php echo $args['link']?>">
-    <img class='pw-image' src="<?php echo $args['thumbnail']?>" alt="">
+  <a class='pw-component-card-project-link' href="<?php echo $args['link']?>"> 
+    <div class="pw-image-container">
+      <i class="fas fa-camera"></i>
+      <img class='pw-image' src="<?php echo $args['thumbnail']?>" alt="">
+    </div>   
   </a>
   <div class="pw-info">
     <div class="pw-info-id">
